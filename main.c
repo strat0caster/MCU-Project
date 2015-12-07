@@ -4,9 +4,9 @@
 
 #include <lights.h>
 
-float wx,wy,wz,ax,ay,az;
-//raw data from MPU6050;quite likely that we won't use wy&ay though
+float wx,wy,wz,ax,ay,az;//raw data from MPU6050;quite likely that we won't use wy&ay though
 float miles=0;
+float delta_miles;
 
 int main(){
 	int turning_flag;
@@ -18,29 +18,49 @@ int main(){
 	ES=1;
 	Timer0intial();
 	
-	while(1){
+	while(1){						                  //20ms
+		wz0=wz;
 		[wx,wy,wz,ax,ay,az]=read(MPU6050);            //读取数据的示意，具体代码参考MPU6050使用方法
 		w=sqrt(wx^2+wy^2);                            //用于转向判断
-		if(w>w0) turning_flag=1;
+		if(w>w0) {
+			turning_flag=1;
+		}
+		else if(wz-wz1>w1){									 //w1为快速加速阈值
+			speeding_flag=1;
+		}
+		else if(wz0-wz>w2){  								  //w2为刹车阈值
+			slowing_flag=1;
+		}
+		else if(miles>miles1&&mildes<miles1+dmiles){		//dmiles 决定闪烁时间长短
+			miles_flag1=1;
+		}
+
+		else if(miles>miles1&&mildes<miles1+dmiles){		//dmiles 决定闪烁时间长短
+			miles_flag2=1;
+		}
+		else if(miles>miles1&&mildes<miles1+dmiles){		//dmiles 决定闪烁时间长短
+			miles_flag2=1;
+		}
+
+
 		if(turining_flag){
-			//转向图案
+			Turning_Pattern();
+			turning_flag=0;
 		}
-		
-		
-		Show_Pattern(wz);            		//显示图案为一个模块，这里只是示意
-		if(miles < m1){
-			do(Pattern(miles==m1) );
-			Show_Pattern(wz);
-			
+		else if(slowing_flag){
+			Slowing_Pattern();
+			slowing_flag=0;
 		}
-		
-		if(miles < m2){
-			do (Pattern);
-			Show_Pattern();
+		else if(miles_flag1){
+			Miles_Pattern();
+			miles_flag1=0;
 		}
-		
-		if(miles < m3){
-			
+		else if(miles_flag2){
+			Miles_Pattern();
+			miles_flag2=0;
+		}
+		else{
+			Cruise_Pattern();
 		}
 		
 	}
@@ -51,5 +71,6 @@ void Timer0() interrupt 1
 {
 	TH0= 0x3c;
 	TL0= 0xB0;
-	miles=miles+50*2*pi/wx*D_round; 
+	delta_miles=50*2*pi/wz*D_round;
+	miles=miles+delta_miles; 
 }
