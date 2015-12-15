@@ -1,0 +1,96 @@
+C51 COMPILER V9.00   PATTERN_CELL_TEST                                                     12/15/2015 10:19:35 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE PATTERN_CELL_TEST
+OBJECT MODULE PLACED IN Pattern_Cell_Test.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Pattern_Cell_Test.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #define NUM 3   //LED模组数
+   3          int RollL, RollH, PitchL, PitchH, YawL, YawH ;
+   4          int LED[3]={0,120,240}    ;//表示LED的位置
+   5          int Yaw;
+   6          int i;
+   7          
+   8          unsigned char C,D;
+   9          
+  10          /*兼容ANSIC标准的数据类型可通过指针访问，
+  11          但扩展的bit、sbit、sfr和sfrl6数据类型专用于访问80C51的特殊功能寄存器，
+  12          故不能通过指针进行访问。
+  13          */
+  14          
+  15          //A,B确定点亮的角度 C实现一个灯组中的8只LED分别控制 D为模式选择
+  16          void Pattern_Cell(int A,int B,unsigned char C,unsigned char D)
+  17          {
+  18   1              Yaw=(YawH<<8|YawL)/32768*180;
+  19   1              for(i=0;i<NUM;i++){
+  20   2                      LED[i]=Yaw+i*360/NUM;
+  21   2                      for(;LED[i]<-180||LED[i]>=180;)
+  22   2                              LED[i]-=360;            //控制所有坐标在-180到180之间
+  23   2              }
+  24   1      
+  25   1              //D=1时整组调整
+  26   1              if(D==1){
+  27   2                      if(LED[0]>=A&&LED[0]<B)
+  28   2                              P0=C;
+  29   2                      else
+  30   2                              P0=0x00;
+  31   2      
+  32   2                      if(LED[1]>=A&&LED[1]<B)
+  33   2                              P1=C;
+  34   2                      else
+  35   2                              P1=0x00;
+  36   2      
+  37   2                      if(LED[2]>=A&&LED[2]<B)
+  38   2                              P2=C;
+  39   2                      else
+  40   2                              P2=0x00;
+  41   2              }
+  42   1      
+  43   1              //D=0时分个单独调整
+  44   1              else{
+  45   2                      int C1[8]={0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80};
+  46   2                      
+  47   2                      if(LED[0]>=A&&LED[0]<B)
+  48   2                              P0=C1[C];
+  49   2                      else
+  50   2                              P0=0x00;
+  51   2      
+  52   2                      if(LED[1]>=A&&LED[1]<B)
+  53   2                              P1=C1[C];
+  54   2                      else
+  55   2                              P1=0x00;
+C51 COMPILER V9.00   PATTERN_CELL_TEST                                                     12/15/2015 10:19:35 PAGE 2   
+
+  56   2      
+  57   2                      if(LED[2]>=A&&LED[2]<B)
+  58   2                              P2=C1[C];
+  59   2                      else
+  60   2                              P2=0x00;
+  61   2              }
+  62   1      }
+  63          
+  64          int main()
+  65          {
+  66   1              YawH=0;
+  67   1              YawL=0;
+  68   1              while(1){
+  69   2                      Pattern_Cell(-30,30,3,0);
+  70   2              }
+  71   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    473    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     24      22
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
