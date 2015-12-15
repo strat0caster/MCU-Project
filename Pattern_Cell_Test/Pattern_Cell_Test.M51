@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        12/15/2015  10:19:35  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/15/2015  10:37:23  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -29,19 +29,19 @@ LINK MAP OF MODULE:  Pattern_Cell_Test (?C_STARTUP)
 
             * * * * * * *   D A T A   M E M O R Y   * * * * * * *
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
-            DATA    0008H     0018H     UNIT         ?DT?PATTERN_CELL_TEST
-            DATA    0020H     0016H     UNIT         _DATA_GROUP_
-            IDATA   0036H     0001H     UNIT         ?STACK
+            DATA    0008H     0016H     UNIT         ?DT?PATTERN_CELL_TEST
+            DATA    001EH     0016H     UNIT         _DATA_GROUP_
+            IDATA   0034H     0001H     UNIT         ?STACK
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
             CODE    0003H     02B0H     UNIT         ?C?LIB_CODE
-            CODE    02B3H     01BFH     UNIT         ?PR?_PATTERN_CELL?PATTERN_CELL_TEST
-            CODE    0472H     008CH     UNIT         ?C_C51STARTUP
-            CODE    04FEH     0044H     UNIT         ?C?LDIV
-            CODE    0542H     001AH     UNIT         ?PR?MAIN?PATTERN_CELL_TEST
-            CODE    055CH     0010H     UNIT         ?CO?PATTERN_CELL_TEST
-            CODE    056CH     0009H     UNIT         ?C_INITSEG
+            CODE    02B3H     01B7H     UNIT         ?PR?_PATTERN_CELL?PATTERN_CELL_TEST
+            CODE    046AH     008CH     UNIT         ?C_C51STARTUP
+            CODE    04F6H     0044H     UNIT         ?C?LDIV
+            CODE    053AH     001AH     UNIT         ?PR?MAIN?PATTERN_CELL_TEST
+            CODE    0554H     0010H     UNIT         ?CO?PATTERN_CELL_TEST
+            CODE    0564H     0009H     UNIT         ?C_INITSEG
 
 
 
@@ -58,8 +58,8 @@ SEGMENT                                       DATA_GROUP
 ?PR?MAIN?PATTERN_CELL_TEST                  -----    -----
   +--> ?PR?_PATTERN_CELL?PATTERN_CELL_TEST
 
-?PR?_PATTERN_CELL?PATTERN_CELL_TEST         0020H    0016H
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/15/2015  10:19:35  PAGE 2
+?PR?_PATTERN_CELL?PATTERN_CELL_TEST         001EH    0016H
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/15/2015  10:37:23  PAGE 2
 
 
   +--> ?CO?PATTERN_CELL_TEST
@@ -72,8 +72,8 @@ SYMBOL TABLE OF MODULE:  Pattern_Cell_Test (?C_STARTUP)
   ----------------------------------
 
   -------         MODULE        ?C_STARTUP
-  C:0472H         SEGMENT       ?C_C51STARTUP
-  I:0036H         SEGMENT       ?STACK
+  C:046AH         SEGMENT       ?C_C51STARTUP
+  I:0034H         SEGMENT       ?STACK
   C:0000H         PUBLIC        ?C_STARTUP
   D:00E0H         SYMBOL        ACC
   D:00F0H         SYMBOL        B
@@ -82,7 +82,7 @@ SYMBOL TABLE OF MODULE:  Pattern_Cell_Test (?C_STARTUP)
   N:0000H         SYMBOL        IBPSTACK
   N:0100H         SYMBOL        IBPSTACKTOP
   N:0080H         SYMBOL        IDATALEN
-  C:0475H         SYMBOL        IDATALOOP
+  C:046DH         SYMBOL        IDATALOOP
   N:0000H         SYMBOL        PBPSTACK
   N:0100H         SYMBOL        PBPSTACKTOP
   N:0000H         SYMBOL        PDATALEN
@@ -91,18 +91,18 @@ SYMBOL TABLE OF MODULE:  Pattern_Cell_Test (?C_STARTUP)
   N:0000H         SYMBOL        PPAGEENABLE
   D:00A0H         SYMBOL        PPAGE_SFR
   D:0081H         SYMBOL        SP
-  C:0472H         SYMBOL        STARTUP1
+  C:046AH         SYMBOL        STARTUP1
   N:0000H         SYMBOL        XBPSTACK
   N:0000H         SYMBOL        XBPSTACKTOP
   N:0000H         SYMBOL        XDATALEN
   N:0000H         SYMBOL        XDATASTART
   C:0000H         LINE#         126
-  C:0472H         LINE#         133
-  C:0474H         LINE#         134
-  C:0475H         LINE#         135
-  C:0476H         LINE#         136
-  C:0478H         LINE#         185
-  C:047BH         LINE#         196
+  C:046AH         LINE#         133
+  C:046CH         LINE#         134
+  C:046DH         LINE#         135
+  C:046EH         LINE#         136
+  C:0470H         LINE#         185
+  C:0473H         LINE#         196
   -------         ENDMOD        ?C_STARTUP
 
   -------         MODULE        PATTERN_CELL_TEST
@@ -111,76 +111,78 @@ SYMBOL TABLE OF MODULE:  Pattern_Cell_Test (?C_STARTUP)
   D:0080H         PUBLIC        P0
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
-  C:0542H         PUBLIC        main
+  C:053AH         PUBLIC        main
   D:000AH         PUBLIC        Yaw
   D:000CH         PUBLIC        C
-  C:055CH         SYMBOL        _?ix1000
+  C:0554H         SYMBOL        _?ix1000
   D:000DH         PUBLIC        D
   D:000EH         PUBLIC        PitchH
   C:02B3H         PUBLIC        _Pattern_Cell
   D:0010H         PUBLIC        PitchL
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/15/2015  10:19:35  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/15/2015  10:37:23  PAGE 3
 
 
   D:0012H         PUBLIC        LED
   D:0018H         PUBLIC        RollH
   D:001AH         PUBLIC        RollL
-  D:001CH         PUBLIC        i
-  D:001EH         PUBLIC        YawH
+  D:001CH         PUBLIC        YawH
   -------         PROC          _PATTERN_CELL
-  D:0020H         SYMBOL        A
-  D:0022H         SYMBOL        B
-  D:0024H         SYMBOL        C
-  D:0025H         SYMBOL        D
+  D:001EH         SYMBOL        A
+  D:0020H         SYMBOL        B
+  D:0022H         SYMBOL        C
+  D:0023H         SYMBOL        D
   -------         DO            
-  D:0026H         SYMBOL        C1
+  D:0002H         SYMBOL        i
+  -------         DO            
+  D:0024H         SYMBOL        C1
   -------         ENDDO         
-  C:02B3H         LINE#         16
-  C:02BDH         LINE#         17
+  -------         ENDDO         
+  C:02B3H         LINE#         15
+  C:02BDH         LINE#         16
   C:02BDH         LINE#         18
   C:02E1H         LINE#         19
-  C:02E6H         LINE#         20
-  C:030BH         LINE#         21
-  C:032BH         LINE#         22
-  C:033EH         LINE#         23
-  C:034CH         LINE#         26
-  C:0352H         LINE#         27
-  C:0373H         LINE#         28
-  C:0378H         LINE#         30
-  C:037BH         LINE#         32
-  C:039CH         LINE#         33
-  C:03A1H         LINE#         35
-  C:03A4H         LINE#         37
-  C:03C5H         LINE#         38
-  C:03C9H         LINE#         40
-  C:03C9H         LINE#         41
-  C:03CCH         LINE#         44
-  C:03CCH         LINE#         45
-  C:03DFH         LINE#         47
-  C:0400H         LINE#         48
-  C:040DH         LINE#         50
-  C:0410H         LINE#         52
-  C:0431H         LINE#         53
-  C:043EH         LINE#         55
-  C:0441H         LINE#         57
-  C:0462H         LINE#         58
-  C:046EH         LINE#         60
-  C:0471H         LINE#         61
-  C:0471H         LINE#         62
+  C:02E4H         LINE#         20
+  C:0308H         LINE#         21
+  C:0327H         LINE#         22
+  C:0339H         LINE#         23
+  C:0344H         LINE#         26
+  C:034AH         LINE#         27
+  C:036BH         LINE#         28
+  C:0370H         LINE#         30
+  C:0373H         LINE#         32
+  C:0394H         LINE#         33
+  C:0399H         LINE#         35
+  C:039CH         LINE#         37
+  C:03BDH         LINE#         38
+  C:03C1H         LINE#         40
+  C:03C1H         LINE#         41
+  C:03C4H         LINE#         44
+  C:03C4H         LINE#         45
+  C:03D7H         LINE#         47
+  C:03F8H         LINE#         48
+  C:0405H         LINE#         50
+  C:0408H         LINE#         52
+  C:0429H         LINE#         53
+  C:0436H         LINE#         55
+  C:0439H         LINE#         57
+  C:045AH         LINE#         58
+  C:0466H         LINE#         60
+  C:0469H         LINE#         61
+  C:0469H         LINE#         62
   -------         ENDPROC       _PATTERN_CELL
   -------         PROC          MAIN
-  C:0542H         LINE#         64
-  C:0542H         LINE#         65
-  C:0542H         LINE#         66
-  C:0547H         LINE#         67
-  C:054BH         LINE#         68
-  C:054BH         LINE#         69
-  C:055AH         LINE#         70
+  C:053AH         LINE#         64
+  C:053AH         LINE#         65
+  C:053AH         LINE#         66
+  C:053FH         LINE#         67
+  C:0543H         LINE#         68
+  C:0543H         LINE#         69
+  C:0552H         LINE#         70
   -------         ENDPROC       MAIN
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/15/2015  10:37:23  PAGE 4
+
+
   -------         ENDMOD        PATTERN_CELL_TEST
-
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/15/2015  10:19:35  PAGE 4
-
 
   -------         MODULE        ?C?COPY
   C:00D3H         PUBLIC        ?C?COPY
@@ -199,7 +201,7 @@ SYMBOL TABLE OF MODULE:  Pattern_Cell_Test (?C_STARTUP)
   -------         ENDMOD        ?C?LMUL
 
   -------         MODULE        ?C?SLDIV
-  C:04FEH         PUBLIC        ?C?SLDIV
+  C:04F6H         PUBLIC        ?C?SLDIV
   -------         ENDMOD        ?C?SLDIV
 
   -------         MODULE        ?C?UIDIV
@@ -210,5 +212,5 @@ SYMBOL TABLE OF MODULE:  Pattern_Cell_Test (?C_STARTUP)
   C:0221H         PUBLIC        ?C?ULDIV
   -------         ENDMOD        ?C?ULDIV
 
-Program Size: data=55.0 xdata=0 code=1397
+Program Size: data=53.0 xdata=0 code=1389
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
