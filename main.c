@@ -18,6 +18,8 @@ int main(){
 	ES=1;
 	Timer0intial();
 	
+	
+
 	while(1){						                  //20ms
 		wz0=wz;
 		[wx,wy,wz,ax,ay,az]=read(MPU6050);            //读取数据的示意，具体代码参考MPU6050使用方法

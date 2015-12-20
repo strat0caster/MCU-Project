@@ -416,17 +416,17 @@ THE SOFTWARE.
 #define MPU6050_WAKE_FREQ_5         0x2
 #define MPU6050_WAKE_FREQ_10        0x3
 
-#define MPU6050_BANKSEL_PRFTCH_EN_BIT       6
-#define MPU6050_BANKSEL_CFG_USER_BANK_BIT   5
-#define MPU6050_BANKSEL_MEM_SEL_BIT         4
-#define MPU6050_BANKSEL_MEM_SEL_LENGTH      5
+#define MPU6050_BANKSEL_PRFTCH_EN_BIT       6	;
+#define MPU6050_BANKSEL_CFG_USER_BANK_BIT   5  ;
+#define MPU6050_BANKSEL_MEM_SEL_BIT         4  ;
+#define MPU6050_BANKSEL_MEM_SEL_LENGTH      5	;
 
-#define MPU6050_WHO_AM_I_BIT        6
-#define MPU6050_WHO_AM_I_LENGTH     6
+#define MPU6050_WHO_AM_I_BIT        6  ;
+#define MPU6050_WHO_AM_I_LENGTH     6  ;
 
-#define MPU6050_DMP_MEMORY_BANKS        8
-#define MPU6050_DMP_MEMORY_BANK_SIZE    256
-#define MPU6050_DMP_MEMORY_CHUNK_SIZE   16
+#define MPU6050_DMP_MEMORY_BANKS        8 ;
+#define MPU6050_DMP_MEMORY_BANK_SIZE    256;
+#define MPU6050_DMP_MEMORY_CHUNK_SIZE   16;
 
 // note: DMP code memory blocks defined at end of header file
 

@@ -1,0 +1,93 @@
+C51 COMPILER V9.00   MPU2MCU_TEST                                                          12/17/2015 22:40:54 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE MPU2MCU_TEST
+OBJECT MODULE PLACED IN MPU2MCU_Test.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE MPU2MCU_Test.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #define D_Round 0.2  //定义
+   2          #define pi 3.14159265358
+   3          
+   4          
+   5          
+   6          #include <lights.h>
+   7          
+   8          
+   9          float wx,wy,wz,ax,ay,az;//raw data from MPU6050;quite likely that we won't use wy&ay though
+  10          float Roll ,Pitch ,Yaw=0;
+  11           unsigned char Rebuf[11],counter;
+  12           unsigned char sign;
+  13          
+  14          void usart_rx_isr(void) interrupt 4 //USART 串行接收中断
+  15           {
+  16   1              Rebuf[counter]=SBUF;//不同单片机略有差异 
+  17   1              if(counter==0&&Rebuf[0]!=0x55) 
+  18   1                      return; //第 0 号数据不是帧头,跳过
+  19   1      
+  20   1              counter++;
+  21   1              if(counter==11) //接收到 11 个数据
+  22   1              {
+  23   2              counter=0; //重新赋值,准备下一帧数据的接收 
+  24   2              sign=1;
+  25   2                      }
+  26   1      }
+  27          
+  28          
+  29          void main(){
+  30   1      P0=0x00;
+  31   1      REN=1;
+  32   1      PCON=0x80;
+  33   1      SM0=1;
+  34   1      SM1=0;
+  35   1      EA=1;
+  36   1      ES=1;
+  37   1      
+  38   1      while(1){
+  39   2              if(sign) {
+  40   3                      sign=0; 
+  41   3                      if(Rebuf[0]==0x55) {
+  42   4                              switch(Rebuf [1]) {
+  43   5                              case 0x51:
+  44   5                                      //检查帧头
+  45   5                                      ax= ((Rebuf [3]<<8| Rebuf [2]))/32768.0*16; 
+  46   5                                      ay= ((Rebuf [5]<<8| Rebuf [4]))/32768.0*16; 
+  47   5                                      az= ((Rebuf [7]<<8| Rebuf [6]))/32768.0*16; 
+  48   5                                      break;
+  49   5                              case 0x52:
+  50   5                                      wx = ((Rebuf [3]<<8| Rebuf [2]))/32768.0*2000;
+  51   5                                       wy = ((Rebuf [5]<<8| Rebuf [4]))/32768.0*2000; 
+  52   5                                       wz = ((Rebuf [7]<<8| Rebuf [6]))/32768.0*2000; 
+  53   5                                       break;
+  54   5                              case 0x53:
+  55   5                                      Roll = ((Rebuf [3]<<8| Rebuf [2]))/32768.0*180; 
+C51 COMPILER V9.00   MPU2MCU_TEST                                                          12/17/2015 22:40:54 PAGE 2   
+
+  56   5                                      Pitch = ((Rebuf [5]<<8| Rebuf [4]))/32768.0*180; 
+  57   5                                      Yaw = ((Rebuf [7]<<8| Rebuf [6]))/32768.0*180; 
+  58   5                                      break;
+  59   5                              }
+  60   4                      }
+  61   3              }
+  62   2              if(Yaw>10)
+  63   2              P0=0xf0;
+  64   2      }
+  65   1      
+  66   1      }
+  67          
+  68          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    459    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     49    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

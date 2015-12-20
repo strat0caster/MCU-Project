@@ -1,8 +1,8 @@
 #include <reg51.h>
 #define NUM 3	//LED模组数
-int RollL, RollH, PitchL, PitchH, YawL, YawH ;
+
 int LED[3]={0,120,240}	  ;//表示LED的位置
-int Yaw;
+float Yaw;
 
 unsigned char C,D;
 
@@ -15,7 +15,6 @@ unsigned char C,D;
 void Pattern_Cell(int A,int B,unsigned char C,unsigned char D)
 {
 	int i;
-	Yaw=(YawH<<8|YawL)/32768*180;
 	for(i=0;i<NUM;i++){
 		LED[i]=Yaw+i*360/NUM;
 		for(;LED[i]<-180||LED[i]>=180;)
