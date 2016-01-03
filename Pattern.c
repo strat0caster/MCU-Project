@@ -23,5 +23,5 @@ void Pattern_11(){
 		Pattern_Cell(i*5,4+i*5,5,1);
 		Pattern_Cell(i*5,4+i*5,6,1);
 		Pattern_Cell(i*5,4+i*5,7,1);
-	}
+	}	
 }

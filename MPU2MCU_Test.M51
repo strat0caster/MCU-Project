@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        12/17/2015  22:40:54  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/30/2015  21:31:53  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -28,30 +28,38 @@ LINK MAP OF MODULE:  MPU2MCU_Test (?C_STARTUP)
 
             * * * * * * *   D A T A   M E M O R Y   * * * * * * *
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
-            DATA    0008H     0031H     UNIT         ?DT?MPU2MCU_TEST
-            IDATA   0039H     0001H     UNIT         ?STACK
+            DATA    0008H     0032H     UNIT         ?DT?MPU2MCU_TEST
+            DATA    003AH     0001H     UNIT         _DATA_GROUP_
+            IDATA   003BH     0001H     UNIT         ?STACK
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
-            CODE    0003H     0007H     UNIT         ?C_INITSEG
-                    000AH     0019H                  *** GAP ***
+            CODE    0003H     0018H     UNIT         ?PR?UARTINIT?MPU2MCU_TEST
+                    001BH     0008H                  *** GAP ***
             CODE    0023H     0003H     ABSOLUTE     
             CODE    0026H     02A9H     UNIT         ?C?LIB_CODE
-            CODE    02CFH     019EH     UNIT         ?PR?MAIN?MPU2MCU_TEST
-            CODE    046DH     008CH     UNIT         ?C_C51STARTUP
-            CODE    04F9H     002DH     UNIT         ?PR?USART_RX_ISR?MPU2MCU_TEST
+            CODE    02CFH     01CFH     UNIT         ?PR?SER?MPU2MCU_TEST
+            CODE    049EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    052AH     0029H     UNIT         ?PR?MAIN?MPU2MCU_TEST
+            CODE    0553H     000DH     UNIT         ?C_INITSEG
 
 
 
 OVERLAY MAP OF MODULE:   MPU2MCU_Test (?C_STARTUP)
 
 
-SEGMENT
-  +--> CALLED SEGMENT
----------------------
-?C_C51STARTUP
+SEGMENT                             DATA_GROUP 
+  +--> CALLED SEGMENT             START    LENGTH
+-------------------------------------------------
+?C_C51STARTUP                     -----    -----
   +--> ?PR?MAIN?MPU2MCU_TEST
   +--> ?C_INITSEG
+
+?PR?MAIN?MPU2MCU_TEST             003AH    0001H
+  +--> ?PR?UARTINIT?MPU2MCU_TEST
+
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/30/2015  21:31:53  PAGE 2
 
 
 
@@ -59,13 +67,10 @@ SYMBOL TABLE OF MODULE:  MPU2MCU_Test (?C_STARTUP)
 
   VALUE           TYPE          NAME
   ----------------------------------
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/17/2015  22:40:54  PAGE 2
-
-
 
   -------         MODULE        ?C_STARTUP
-  C:046DH         SEGMENT       ?C_C51STARTUP
-  I:0039H         SEGMENT       ?STACK
+  C:049EH         SEGMENT       ?C_C51STARTUP
+  I:003BH         SEGMENT       ?STACK
   C:0000H         PUBLIC        ?C_STARTUP
   D:00E0H         SYMBOL        ACC
   D:00F0H         SYMBOL        B
@@ -74,7 +79,7 @@ SYMBOL TABLE OF MODULE:  MPU2MCU_Test (?C_STARTUP)
   N:0000H         SYMBOL        IBPSTACK
   N:0100H         SYMBOL        IBPSTACKTOP
   N:0080H         SYMBOL        IDATALEN
-  C:0470H         SYMBOL        IDATALOOP
+  C:04A1H         SYMBOL        IDATALOOP
   N:0000H         SYMBOL        PBPSTACK
   N:0100H         SYMBOL        PBPSTACKTOP
   N:0000H         SYMBOL        PDATALEN
@@ -83,95 +88,119 @@ SYMBOL TABLE OF MODULE:  MPU2MCU_Test (?C_STARTUP)
   N:0000H         SYMBOL        PPAGEENABLE
   D:00A0H         SYMBOL        PPAGE_SFR
   D:0081H         SYMBOL        SP
-  C:046DH         SYMBOL        STARTUP1
+  C:049EH         SYMBOL        STARTUP1
   N:0000H         SYMBOL        XBPSTACK
   N:0000H         SYMBOL        XBPSTACKTOP
   N:0000H         SYMBOL        XDATALEN
   N:0000H         SYMBOL        XDATASTART
   C:0000H         LINE#         126
-  C:046DH         LINE#         133
-  C:046FH         LINE#         134
-  C:0470H         LINE#         135
-  C:0471H         LINE#         136
-  C:0473H         LINE#         185
-  C:0476H         LINE#         196
+  C:049EH         LINE#         133
+  C:04A0H         LINE#         134
+  C:04A1H         LINE#         135
+  C:04A2H         LINE#         136
+  C:04A4H         LINE#         185
+  C:04A7H         LINE#         196
   -------         ENDMOD        ?C_STARTUP
 
   -------         MODULE        MPU2MCU_TEST
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0080H         PUBLIC        P0
+  D:00A0H         PUBLIC        P2
   D:0008H         PUBLIC        counter
   B:00A8H.7       PUBLIC        EA
   B:00A8H.4       PUBLIC        ES
   D:0009H         PUBLIC        Roll
-  C:02CFH         PUBLIC        main
-  C:04F9H         PUBLIC        usart_rx_isr
+  B:0098H.0       PUBLIC        RI
+  B:0098H.1       PUBLIC        TI
+  C:052AH         PUBLIC        main
   D:0099H         PUBLIC        SBUF
   D:0087H         PUBLIC        PCON
   D:000DH         PUBLIC        Yaw
   D:0011H         PUBLIC        sign
-  B:0098H.7       PUBLIC        SM0
-  B:0098H.6       PUBLIC        SM1
-  D:0012H         PUBLIC        ax
-  D:0016H         PUBLIC        ay
-  D:001AH         PUBLIC        az
-  B:0098H.4       PUBLIC        REN
-  D:001EH         PUBLIC        wx
-  D:0022H         PUBLIC        wy
-  D:0026H         PUBLIC        wz
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/17/2015  22:40:54  PAGE 3
+  D:0098H         PUBLIC        SCON
+  C:0003H         PUBLIC        UartInit
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/30/2015  21:31:53  PAGE 3
 
 
-  D:002AH         PUBLIC        Rebuf
-  D:0035H         PUBLIC        Pitch
-  -------         PROC          USART_RX_ISR
-  C:04F9H         LINE#         14
-  C:0502H         LINE#         16
-  C:0509H         LINE#         17
-  C:0512H         LINE#         20
-  C:0514H         LINE#         21
-  C:0519H         LINE#         22
-  C:0519H         LINE#         23
-  C:051CH         LINE#         24
-  C:051FH         LINE#         25
-  C:051FH         LINE#         26
-  -------         ENDPROC       USART_RX_ISR
+  D:0089H         PUBLIC        TMOD
+  D:0012H         PUBLIC        test
+  B:00A8H.3       PUBLIC        ET1
+  C:02CFH         PUBLIC        ser
+  D:008DH         PUBLIC        TH1
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  D:0013H         PUBLIC        ax
+  D:0017H         PUBLIC        ay
+  D:001BH         PUBLIC        az
+  D:001FH         PUBLIC        wx
+  D:0023H         PUBLIC        wy
+  D:0027H         PUBLIC        wz
+  D:002BH         PUBLIC        Rebuf
+  D:0036H         PUBLIC        Pitch
+  -------         PROC          UARTINIT
+  C:0003H         LINE#         15
+  C:0003H         LINE#         16
+  C:0003H         LINE#         17
+  C:0005H         LINE#         18
+  C:0007H         LINE#         19
+  C:000AH         LINE#         22
+  C:000DH         LINE#         23
+  C:0010H         LINE#         24
+  C:0013H         LINE#         25
+  C:0015H         LINE#         26
+  C:0017H         LINE#         27
+  C:001AH         LINE#         28
+  -------         ENDPROC       UARTINIT
   -------         PROC          MAIN
-  C:02CFH         LINE#         29
-  C:02CFH         LINE#         30
-  C:02D2H         LINE#         31
-  C:02D4H         LINE#         32
-  C:02D7H         LINE#         33
-  C:02D9H         LINE#         34
-  C:02DBH         LINE#         35
-  C:02DDH         LINE#         36
-  C:02DFH         LINE#         38
-  C:02DFH         LINE#         39
-  C:02E6H         LINE#         40
-  C:02E9H         LINE#         41
-  C:02F2H         LINE#         42
-  C:0305H         LINE#         43
-  C:0305H         LINE#         45
-  C:0329H         LINE#         46
-  C:034DH         LINE#         47
-  C:0371H         LINE#         48
-  C:0374H         LINE#         49
-  C:0374H         LINE#         50
-  C:0398H         LINE#         51
-  C:03BCH         LINE#         52
-  C:03E0H         LINE#         53
-  C:03E2H         LINE#         54
-  C:03E2H         LINE#         55
-  C:0406H         LINE#         56
-  C:042AH         LINE#         57
-  C:044EH         LINE#         58
-  C:044EH         LINE#         59
-  C:044EH         LINE#         60
-  C:044EH         LINE#         61
-  C:044EH         LINE#         62
-  C:0467H         LINE#         63
-  C:046AH         LINE#         64
+  -------         DO            
+  D:003AH         SYMBOL        LED
+  -------         ENDDO         
+  C:052AH         LINE#         29
+  C:052AH         LINE#         31
+  C:052DH         LINE#         32
+  C:0530H         LINE#         34
+  C:0533H         LINE#         35
+  C:0533H         LINE#         36
+  C:054EH         LINE#         37
+  C:0551H         LINE#         38
   -------         ENDPROC       MAIN
+  -------         PROC          SER
+  C:02CFH         LINE#         43
+  C:02ECH         LINE#         44
+  C:02EFH         LINE#         45
+  C:02F1H         LINE#         46
+  C:02F7H         LINE#         47
+  C:02F9H         LINE#         48
+  C:0300H         LINE#         49
+  C:0308H         LINE#         50
+  C:0315H         LINE#         51
+  C:0317H         LINE#         52
+  C:0320H         LINE#         53
+  C:0322H         LINE#         54
+  C:0335H         LINE#         55
+  C:0335H         LINE#         57
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/30/2015  21:31:53  PAGE 4
+
+
+  C:0359H         LINE#         58
+  C:037DH         LINE#         59
+  C:03A1H         LINE#         60
+  C:03A4H         LINE#         61
+  C:03A4H         LINE#         62
+  C:03C8H         LINE#         63
+  C:03ECH         LINE#         64
+  C:0410H         LINE#         65
+  C:0412H         LINE#         66
+  C:0412H         LINE#         67
+  C:0436H         LINE#         68
+  C:045AH         LINE#         69
+  C:047EH         LINE#         70
+  C:047EH         LINE#         71
+  C:047EH         LINE#         72
+  C:047EH         LINE#         73
+  C:047EH         LINE#         74
+  C:0483H         LINE#         75
+  -------         ENDPROC       SER
   -------         ENDMOD        MPU2MCU_TEST
 
   -------         MODULE        ?C?FPMUL
@@ -179,9 +208,6 @@ SYMBOL TABLE OF MODULE:  MPU2MCU_Test (?C_STARTUP)
   -------         ENDMOD        ?C?FPMUL
 
   -------         MODULE        ?C?FPDIV
-BL51 BANKED LINKER/LOCATER V6.22                                                      12/17/2015  22:40:54  PAGE 4
-
-
   C:012FH         PUBLIC        ?C?FPDIV
   -------         ENDMOD        ?C?FPDIV
 
@@ -200,5 +226,5 @@ SYMBOL TABLE OF MODULE:  MPU2MCU_Test (?C_STARTUP)
   C:02C1H         PUBLIC        ?C?LNEG
   -------         ENDMOD        ?C?LNEG
 
-Program Size: data=58.0 xdata=0 code=1293
+Program Size: data=60.0 xdata=0 code=1368
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

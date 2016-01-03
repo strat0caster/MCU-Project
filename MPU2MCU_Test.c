@@ -8,38 +8,49 @@
 
 float wx,wy,wz,ax,ay,az;//raw data from MPU6050;quite likely that we won't use wy&ay though
 float Roll ,Pitch ,Yaw=0;
- unsigned char Rebuf[11],counter;
+ unsigned char Rebuf[11],counter=0,test=0x55;
  unsigned char sign;
 
-void usart_rx_isr(void) interrupt 4 //USART 串行接收中断
- {
-	Rebuf[counter]=SBUF;//不同单片机略有差异 
-	if(counter==0&&Rebuf[0]!=0x55) 
-		return; //第 0 号数据不是帧头,跳过
 
-	counter++;
-	if(counter==11) //接收到 11 个数据
-	{
-	counter=0; //重新赋值,准备下一帧数据的接收 
-	sign=1;
-		}
+void UartInit(void)		//115200bps@11.0592MHz
+{
+	EA=1;
+	ES=1;
+	SCON = 0x50;		//8位数据,可变波特率
+//	AUXR &= 0xBF;		//定时器1时钟为Fosc/12,即12T
+//	AUXR &= 0xFE;		//串口1选择定时器1为波特率发生器
+	TMOD &= 0x02;		//设定定时器1为16位自动重装方式
+	TL1 = 0xFD;		//设定定时初值
+	TH1 = 0xFD;		//设定定时初值
+	ET1 = 0;		//禁止定时器1中断
+	TR1 = 1;		//启动定时器1
+	PCON = 0x00;
+}
+void main(){
+	unsigned char LED;
+LED=0x22;
+P0=LED;//测试
+
+UartInit();
+while(1){
+if(Yaw>20){LED=0x55;}
+else{LED=0x88;}
+}
+P0=LED;
 }
 
 
-void main(){
-P0=0x00;
-
-
-
-REN=1;
-PCON=0x80;
-SM0=1;
-SM1=0;
-
-while(1){
-	if(sign) {
-		sign=0; 
-		if(Rebuf[0]==0x55) {
+void ser() interrupt 4{ 
+	P2=test;
+	test++;
+if(RI){
+	RI=0;
+	Rebuf[counter]=SBUF;	
+	SBUF=Rebuf[counter];
+		if(counter==0 && Rebuf[0]!=0x55) return;
+		counter++;
+		if(counter==11) {
+			counter=0;
 			switch(Rebuf [1]) {
 			case 0x51:
 				//检查帧头
@@ -49,10 +60,10 @@ while(1){
 				break;
 			case 0x52:
 				wx = ((Rebuf [3]<<8| Rebuf [2]))/32768.0*2000;
-				 wy = ((Rebuf [5]<<8| Rebuf [4]))/32768.0*2000; 
-				 wz = ((Rebuf [7]<<8| Rebuf [6]))/32768.0*2000; 
-				 break;
-			case 0x53:
+				wy = ((Rebuf [5]<<8| Rebuf [4]))/32768.0*2000; 
+				wz = ((Rebuf [7]<<8| Rebuf [6]))/32768.0*2000;
+				break;
+			case 0x53: 
 				Roll = ((Rebuf [3]<<8| Rebuf [2]))/32768.0*180; 
 				Pitch = ((Rebuf [5]<<8| Rebuf [4]))/32768.0*180; 
 				Yaw = ((Rebuf [7]<<8| Rebuf [6]))/32768.0*180; 
@@ -60,10 +71,5 @@ while(1){
 			}
 		}
 	}
-	if(Yaw>10)
-	P0=0xf0;
+if(TI){TI=0;}
 }
-
-}
-
-

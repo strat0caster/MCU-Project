@@ -144,7 +144,7 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>57</LineNumber>
+          <LineNumber>38</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -180,7 +180,7 @@
         <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
         <TrcWin>0</TrcWin>
-        <newCpu>1</newCpu>
+        <newCpu>0</newCpu>
         <uProt>0</uProt>
       </DebugFlag>
       <LintExecutable></LintExecutable>
@@ -194,8 +194,8 @@
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
-      <GroupNumber>0</GroupNumber>
-      <FileNumber>0</FileNumber>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>1</FileNumber>
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -208,20 +208,46 @@
       <FilenameWithoutPath>STARTUP.A51</FilenameWithoutPath>
     </File>
     <File>
-      <GroupNumber>0</GroupNumber>
-      <FileNumber>0</FileNumber>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>2</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>6</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>29</TopLine>
-      <CurrentLine>39</CurrentLine>
+      <TopLine>34</TopLine>
+      <CurrentLine>34</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MPU2MCU_Test.c</PathWithFileName>
       <FilenameWithoutPath>MPU2MCU_Test.c</FilenameWithoutPath>
     </File>
   </Group>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\Sam Song\Desktop\优生免考\MCU-Project\LIGHTS.H</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>27</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
 
   <AlienFiles>
     <PathWithFilename>C:\Users\Sam Song\Desktop\优生免考\MCU-Project\MPU6050.H</PathWithFilename>
@@ -250,9 +276,9 @@
   </AlienFiles>
 
   <AlienFiles>
-    <PathWithFilename>C:\Users\Sam Song\Desktop\优生免考\MCU-Project\lights.h</PathWithFilename>
-    <TopLine>1</TopLine>
-    <CurrentLine>27</CurrentLine>
+    <PathWithFilename>C:\Users\Sam Song\Desktop\优生免考\MPU6050资料V5\MPU6050资料V5\示例程序\51例程\51例程\test.c</PathWithFilename>
+    <TopLine>61</TopLine>
+    <CurrentLine>66</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1620,9 +1646,9 @@
       <Documents>
         <Doc>
           <Name>.\MPU2MCU_Test.c</Name>
-          <ColumnNumber>6</ColumnNumber>
-          <TopLine>29</TopLine>
-          <CurrentLine>39</CurrentLine>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>34</TopLine>
+          <CurrentLine>34</CurrentLine>
         </Doc>
         <Doc>
           <Name>C:\Users\Sam Song\Desktop\优生免考\MCU-Project\MPU6050.H</Name>
@@ -1641,6 +1667,12 @@
           <ColumnNumber>0</ColumnNumber>
           <TopLine>1</TopLine>
           <CurrentLine>1</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>C:\Users\Sam Song\Desktop\优生免考\MPU6050资料V5\MPU6050资料V5\示例程序\51例程\51例程\test.c</Name>
+          <ColumnNumber>5</ColumnNumber>
+          <TopLine>61</TopLine>
+          <CurrentLine>66</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>
