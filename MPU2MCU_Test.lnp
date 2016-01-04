@@ -1,4 +1,0 @@
-"STARTUP.obj",
-"MPU2MCU_Test.obj" 
-TO "MPU2MCU_Test" 
-RAMSIZE(256) 
