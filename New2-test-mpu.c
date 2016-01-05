@@ -1,5 +1,7 @@
 #include <reg51.h>
 #include <intrins.h>
+#include <math.h>
+
 sfr AUXR=0x8E;
 sfr T2CON=0xC8;
 sfr RCAP2L=0xCA;
@@ -12,25 +14,33 @@ int a[3],w[3],Angle[3];
 //Angle_Z directly determines where it is ON THE WHEEL.
 int Receive_Buff[11];
 unsigned char counter=0,test=0;
-int low_8=0, high_8=0;
+int a1=0,a2=0,a3=0;
+int timer=0;
+double AngleNew=0;
+
 
 void main(void) {
 	unsigned char LED;
 	void UartInit();
 	UartInit();
 	while(1){
-			if( Angle[0] >20000){
+			// if(w[0]<1000){
+			// 	if( Angle[0] >2000){
+			// 	LED=0x00;
+			// 	}
+			// 	else{
+			// 	LED=0xFF;
+			// 	}
+			// }
+			// else{
+			if( AngleNew >120){
 				LED=0x00;
 			}
 			else{
 				LED=0xFF;
 			}
-			low_8=Angle[0] & 0xFF;
-			high_8=(Angle[0]>>8)&0xFF;
-			P1=low_8;
-			P2=high_8;
-			P0=LED;
-
+			// }
+		P0=LED;
 	}
 
 }
@@ -60,7 +70,6 @@ void UartInit(void)		//9600bps@11.0592MHz
 	TL2 = 0xFD;		//??????
 	TH2 = 0xFF;		//??????
 	T2CON=0x34;
-
 }
 
 void ser() interrupt 4
@@ -79,18 +88,30 @@ void ser() interrupt 4
 		
 			switch(Receive_Buff [1])
 			{
-//			case 0x51:
-//			a[0]=(Receive_Buff[3]<<8|Receive_Buff[2])/32768.0*16;
-//			a[1]=(Receive_Buff[5]<<8|Receive_Buff[4])/32768.0*16;
+			case 0x51:
+//			a[0]=(Receive_Buff[3]<<8|Receive_Buff[2])/32768.0*16*9.8;
+			a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+			AngleNew=asin(a[1]/2048.0)*57.3;			
+			// a1=a2;
+			// a2=a3;
+			// a3=a[1];
+			// if(a1>a2&&a2<a3){//¹Ì¶¨µãÅÐ¶Ï
+			// 	AngleNew=0;
+			// }
+			// if(w[1]>1000&&a1>a2&&a2<a3){
+			// 	AngleNew=0;
+			// }
 //			a[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*16;
 //			break;
-//			case 0x52:		
-//			w[0]=(Receive_Buff[3]<<8|Receive_Buff[2])/32768.0*2000;
-//			w[1]=(Receive_Buff[5]<<8|Receive_Buff[4])/32768.0*2000;
+			case 0x52:		
+//			w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+			// w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+			// if(w[1]>1000)
+			// AngleNew+=w[1]/100;
 //			w[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*2000;
 //			break;
 			case 0x53: 
-			Angle[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+//			Angle[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
 //			Angle[1]=(Receive_Buff[5]<<8|Receive_Buff[4])/32768.0*180;
 //			Angle[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*180;
 			break;
@@ -100,7 +121,7 @@ void ser() interrupt 4
 
 	  }
 	
-		if(TI){TI=0;}
+		if(TI){
+			TI=0;
+		}
 }
-
-

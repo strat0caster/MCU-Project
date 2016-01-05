@@ -1,8 +1,8 @@
 #include <reg51.h>
 #include <intrins.h>
 
-sbit PIN_RXD = P3^0; //接收引脚定义
-sbit PIN_TXD = P3^1; //发送引脚定义
+sbit PIN_RXD = P3^2; //接收引脚定义
+sbit PIN_TXD = P3^3; //发送引脚定义
 bit RxdOrTxd = 0; //指示当前状态为接收还是发送
 bit RxdEnd = 0; //接收结束标志
 bit TxdEnd = 0; //发送结束标志
@@ -11,26 +11,23 @@ unsigned char TxdBuf = 0; //发送缓冲器
 void ConfigUART(unsigned int baud);
 void StartTXD(unsigned char dat);
 void StartRXD();
-int temp=0;//测验
 
 void main(){
     EA = 1; //开总中断
     ConfigUART(9600);
+	P0=0;
     while (1){ //配置波特率为 9600
-        while(temp<=10000)temp++;
-        temp=0;
-        StartTXD(0x55); 
-        while (!TxdEnd); 
+        
+        StartTXD(P0); 
+        while (!TxdEnd);
     }
 }
-
 /* 串口配置函数，baud-通信波特率 */
 void ConfigUART(unsigned int baud){
     TMOD &= 0xF0; //清零 T0 的控制位
     TMOD |= 0x02; //配置 T0 为模式 2
     TH0 = 256 - (11059200/12)/baud; //计算 T0 重载值
 }
-
 /* 启动串行接收 */
 void StartRXD(){
     TL0 = 256 - ((256-TH0)>>1); //接收启动时的 T0 定时为半个波特率周期
@@ -64,7 +61,7 @@ void InterruptTimer0() interrupt 1{
     else{ //发送结束
             cnt = 0; //复位 bit 计数器
             TR0 = 0; //关闭 T0
-            TxdEnd = 1; //置发送结束标志
+            TxdEnd = 1; // 置发送结束标志
         }
     }else{ //串行接收处理
         if (cnt == 0){ //处理起始位
@@ -72,10 +69,10 @@ void InterruptTimer0() interrupt 1{
                 RxdBuf = 0;
                 cnt++;
             }
-            else { //起始位不为 0 时，中止接收
+        	else { //起始位不为 0 时，中止接收
             TR0 = 0; //关闭 T0
-            }
-        }
+			}
+		}
         else if(cnt <= 8){ //处理 8 位数据位
             RxdBuf >>= 1; //低位在先，所以将之前接收的位向右移
             //接收脚为 1 时，缓冲器最高位置 1，
