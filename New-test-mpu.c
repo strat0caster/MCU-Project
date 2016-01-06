@@ -40,7 +40,6 @@ void main(void) {
 			// }
 		P0=LED;
 	}
-
 }
 
 
@@ -87,11 +86,11 @@ void ser() interrupt 4
 			switch(Receive_Buff [1])
 			{
 			case 0x51:
-//			a[0]=(Receive_Buff[3]<<8|Receive_Buff[2])/32768.0*16;
-			a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+			a[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+//			a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
 			a1=a2;
 			a2=a3;
-			a3=a[1];
+			a3=a[0];
 			if(a1>a2&&a2<a3){//¹Ì¶¨µãÅÐ¶Ï
 				AngleNew=0;
 			}
@@ -104,7 +103,7 @@ void ser() interrupt 4
 //			w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
 			w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
 			// if(w[1]>1000)
-			AngleNew+=w[1]/100;
+			AngleNew-=w[1]/100;
 //			w[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*2000;
 //			break;
 			case 0x53: 

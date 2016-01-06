@@ -33,7 +33,7 @@ void main(void) {
 			// 	}
 			// }
 			// else{
-			if( AngleNew >120){
+			if( AngleNew >30){
 				LED=0x00;
 			}
 			else{
@@ -80,18 +80,18 @@ void ser() interrupt 4
 		Receive_Buff[counter]=SBUF;	
 		
 	  if(counter==0&&Receive_Buff[0]!=0x55) return;      //第0号数据不是帧头
-	  counter++; 
+	  counter++;
 		
 	  if(counter==11)             //接收到11个数据
 	    {
 	       counter=0;               //重新赋值，准备下一帧数据的接收        
-		
+
 			switch(Receive_Buff [1])
 			{
 			case 0x51:
-//			a[0]=(Receive_Buff[3]<<8|Receive_Buff[2])/32768.0*16*9.8;
-			a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
-			AngleNew=asin(a[1]/2048.0)*57.3;			
+			a[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+//			a[0]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+			AngleNew=asin(a[0]/2048.0)*57.3;//利用x轴加速度方向判断方位角			
 			// a1=a2;
 			// a2=a3;
 			// a3=a[1];
@@ -102,14 +102,14 @@ void ser() interrupt 4
 			// 	AngleNew=0;
 			// }
 //			a[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*16;
-//			break;
+			break;
 			case 0x52:		
-//			w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+			w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
 			// w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
 			// if(w[1]>1000)
 			// AngleNew+=w[1]/100;
 //			w[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*2000;
-//			break;
+			break;
 			case 0x53: 
 //			Angle[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
 //			Angle[1]=(Receive_Buff[5]<<8|Receive_Buff[4])/32768.0*180;
