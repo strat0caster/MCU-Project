@@ -96,8 +96,8 @@ void ser() interrupt 4
             a1=a2;
             a2=a3;
             a3=a[0];
-            if(a1>=a2&&a2<=a3){Flag=1;}//固定点判断
-            if(a1<=a2&&a2>=a3){Flag=0; 
+            if(a1>=a2&&a2<=a3){Flag=0;}//固定点判断
+            if(a1<=a2&&a2>=a3){Flag=1; 
 						if(w[1]>thres_omega){Dist++;}//一圈里程加1
 						}
             if(Flag==1){AngleNew=asin(a[0]/2048.0)*57.3+90;}//利用x轴加速度方向判断方位角
