@@ -10,9 +10,9 @@
 //#include <MPU6050.h>
 // downloaded already from github;
 
-//#include <speed.h>
+#include "speeding.h"
 // speed obtaining module
-// contains interrupt functions used or renewing the angular speed of the wheel
+// contains 
 
 //#include <led.h>
 // led pattern module
@@ -45,10 +45,12 @@ sfr RCAP2H=0xCB;
 sfr TL2=0xCC;
 sfr TH2=0xCD;
 
+extern int Dist;
+extern double AngleNew;
 
 void turning_pattern();
 void cruise_pattern();
-//void speeding_pattern();
-//void slowing_pattern();
+void speeding_pattern();
+void slowing_pattern();
 void display_distance(int parameter);	
 void UartInit();

@@ -4,7 +4,8 @@
 #define distance_2 40
 #define distance_3 60
 #define thres_omega 6553
-#define omega_acc 30000 //快速加速阈值 
+#define thres_turning 562500
+#define omega_acc 900 //快速加速阈值 
 
 #include "lights.h"
 
@@ -14,7 +15,7 @@ int Receive_Buff[11];
 int a[3],w[3],Angle[3];
 int a1=0,a2=0,a3=0;
 int w1=0,w2=0;
-int w_turning;
+float w_turning;
 
 int Dist=0;
 double AngleNew=0;
@@ -23,14 +24,15 @@ bit Flag=0;
 
 int main(){
 
+	
 	UartInit();
 
 	while(1){                                          //20ms
 
-        w_turning=sqrt(w[0]*w[0]+w[2]*w[2]);                            //用于转向判断
-        if(w_turning>1500) {turning_pattern();}
- //       else if(w2-w1>omega_acc)  {speeding_pattern();}//omega_acc为快速加速阈值
- //       else if(w1-w2>omega_acc)  {slowing_pattern();}//omega_slow为刹车阈值
+        w_turning=(w[0]*w[0]+w[2]*w[2]);                            //用于转向判断
+        if(w_turning>thres_turning) {turning_pattern();}
+        else if(w2-w1>omega_acc)  {speeding_pattern();}//omega_acc为快速加速阈值
+        else if(w1-w2>omega_acc)  {slowing_pattern();}//omega_slow为刹车阈值
         else if(dis_flag_1){display_distance(1);}
         else if(dis_flag_2){display_distance(2);}
         else if(dis_flag_3){display_distance(3);}
