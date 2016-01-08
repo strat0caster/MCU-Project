@@ -1,0 +1,109 @@
+C51 COMPILER V9.00   MAIN                                                                  01/06/2016 22:02:20 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          //考虑之后感觉应该用全局变量来记录里程，且一并放入Timer0()中；
+   2          #define D_Round 0.2  //定义
+   3          #define pi 3.14159265358
+   4          
+   5          #include <lights.h>
+   6          
+   7          float wx,wy,wz,ax,ay,az;//raw data from MPU6050;quite likely that we won't use wy&ay though
+   8          float miles=0;
+   9          float delta_miles;
+  10          
+  11          int main(){
+  12   1              int turning_flag;
+  13   1              EA=1;
+  14   1              ET0=1;                   //计时器0用于测速
+  15   1              ET1=1;                   //
+  16   1              EX0=1;
+  17   1              EX1=1;
+  18   1              ES=1;
+  19   1              Timer0intial();
+*** WARNING C206 IN LINE 19 OF MAIN.C: 'Timer0intial': missing function-prototype
+  20   1              
+  21   1              
+  22   1      
+  23   1              while(1){                                                                 //20ms
+  24   2                      wz0=wz;
+*** ERROR C202 IN LINE 24 OF MAIN.C: 'wz0': undefined identifier
+  25   2                      [wx,wy,wz,ax,ay,az]=read(MPU6050);            //读取数据的示意，具体代码参考MPU6050使用方法
+*** ERROR C141 IN LINE 25 OF MAIN.C: syntax error near '['
+*** ERROR C141 IN LINE 25 OF MAIN.C: syntax error near ']'
+*** ERROR C202 IN LINE 25 OF MAIN.C: 'MPU6050': undefined identifier
+  26   2                      w=sqrt(wx^2+wy^2);                            //用于转向判断
+*** ERROR C202 IN LINE 26 OF MAIN.C: 'w': undefined identifier
+  27   2                      if(w>w0) {
+*** ERROR C202 IN LINE 27 OF MAIN.C: 'w': undefined identifier
+  28   3                              turning_flag=1;
+  29   3                      }
+  30   2                      else if(wz-wz1>w1){                                                                      //w1为快速加速阈值
+*** ERROR C202 IN LINE 30 OF MAIN.C: 'wz1': undefined identifier
+  31   3                              speeding_flag=1;
+*** ERROR C202 IN LINE 31 OF MAIN.C: 'speeding_flag': undefined identifier
+  32   3                      }
+  33   2                      else if(wz0-wz>w2){                                                               //w2为刹车阈值
+*** ERROR C202 IN LINE 33 OF MAIN.C: 'wz0': undefined identifier
+  34   3                              slowing_flag=1;
+*** ERROR C202 IN LINE 34 OF MAIN.C: 'slowing_flag': undefined identifier
+  35   3                      }
+  36   2                      else if(miles>miles1&&mildes<miles1+dmiles){            //dmiles 决定闪烁时间长短
+*** ERROR C202 IN LINE 36 OF MAIN.C: 'miles1': undefined identifier
+  37   3                              miles_flag1=1;
+*** ERROR C202 IN LINE 37 OF MAIN.C: 'miles_flag1': undefined identifier
+  38   3                      }
+  39   2      
+  40   2                      else if(miles>miles1&&mildes<miles1+dmiles){            //dmiles 决定闪烁时间长短
+*** ERROR C202 IN LINE 40 OF MAIN.C: 'miles1': undefined identifier
+  41   3                              miles_flag2=1;
+C51 COMPILER V9.00   MAIN                                                                  01/06/2016 22:02:20 PAGE 2   
+
+*** ERROR C202 IN LINE 41 OF MAIN.C: 'miles_flag2': undefined identifier
+  42   3                      }
+  43   2                      else if(miles>miles1&&mildes<miles1+dmiles){            //dmiles 决定闪烁时间长短
+*** ERROR C202 IN LINE 43 OF MAIN.C: 'miles1': undefined identifier
+  44   3                              miles_flag2=1;
+*** ERROR C202 IN LINE 44 OF MAIN.C: 'miles_flag2': undefined identifier
+  45   3                      }
+  46   2      
+  47   2      
+  48   2                      if(turining_flag){
+*** ERROR C202 IN LINE 48 OF MAIN.C: 'turining_flag': undefined identifier
+  49   3                              Turning_Pattern();
+  50   3                              turning_flag=0;
+  51   3                      }
+  52   2                      else if(slowing_flag){
+  53   3                              Slowing_Pattern();
+  54   3                              slowing_flag=0;
+  55   3                      }
+  56   2                      else if(miles_flag1){
+  57   3                              Miles_Pattern();
+  58   3                              miles_flag1=0;
+  59   3                      }
+  60   2                      else if(miles_flag2){
+  61   3                              Miles_Pattern();
+  62   3                              miles_flag2=0;
+  63   3                      }
+  64   2                      else{
+  65   3                              Cruise_Pattern();
+  66   3                      }
+  67   2                      
+  68   2              }
+  69   1              
+  70   1      }
+  71          
+  72          void Timer0() interrupt 1
+  73          {
+  74   1              TH0= 0x3c;
+  75   1              TL0= 0xB0;
+  76   1              delta_miles=50*2*pi/wz*D_round;
+  77   1              miles=miles+delta_miles; 
+  78   1      }
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  17 ERROR(S)

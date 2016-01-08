@@ -1,0 +1,129 @@
+C51 COMPILER V9.00   MILEAGE                                                               01/06/2016 22:02:20 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE MILEAGE
+OBJECT MODULE PLACED IN .\mileage.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\..\微机小作业\mileage.c BROWSE DEBUG OBJECTEXTEND PRINT(.\mileage.lst) O
+                    -BJECT(.\mileage.obj)
+
+line level    source
+
+   1          #include "mileage.h"
+   2          
+   3          void delay_10ms(int times){
+   4   1              unsigned char a,b;
+   5   1              for(;times>0;times--){
+   6   2                      for(b=40;b>0;b--){
+   7   3                              for(a=114;a>0;a--);
+   8   3                      }
+   9   2              }
+  10   1      }
+  11          
+  12          
+  13          void display_distance(int parameter){
+  14   1              switch (parameter){
+  15   2                      unsigned char a,b,c;
+  16   2                      
+  17   2                      case 1:  // distance 1 arrived
+  18   2                      P0=0x01;                delay_10ms(10);
+  19   2                      P0=0x02;                delay_10ms(10);
+  20   2                      P0=0x04;                delay_10ms(10);
+  21   2                      P0=0x08;                delay_10ms(10);
+  22   2                      P0=0x10;                delay_10ms(10);
+  23   2                      P0=0x20;                delay_10ms(10);
+  24   2                      P0=0x40;                delay_10ms(10);
+  25   2                      P0=0x80;                delay_10ms(10);
+  26   2                      P0=0x40;                delay_10ms(10);
+  27   2                      P0=0x20;                delay_10ms(10);
+  28   2                      P0=0x10;                delay_10ms(10);
+  29   2                      P0=0x08;                delay_10ms(10);
+  30   2                      P0=0x04;                delay_10ms(10);
+  31   2                      P0=0x02;                delay_10ms(10);
+  32   2                      P0=0x01;                delay_10ms(10);
+  33   2                      
+  34   2                      case 2:  // distance 2 arrived
+  35   2                      P0=0x81;                delay_10ms(10);
+  36   2                      P0=0x42;                delay_10ms(10);
+  37   2                      P0=0x24;                delay_10ms(10);
+  38   2                      P0=0x18;                delay_10ms(10);
+  39   2                      P0=0x24;                delay_10ms(10);
+  40   2                      P0=0x42;                delay_10ms(10);
+  41   2                      P0=0x81;                delay_10ms(10);
+  42   2                      P0=0x00;                delay_10ms(30);
+  43   2                      P0=0xFF;                delay_10ms(10);
+  44   2                      P0=0x00;                delay_10ms(10);
+  45   2                      P0=0xFF;                delay_10ms(10);
+  46   2                      P0=0x00;                delay_10ms(10);
+  47   2                      P0=0xFF;                delay_10ms(10);
+  48   2                      P0=0x00;                delay_10ms(40);
+  49   2                      
+  50   2                      case 3:  // distance 3 arrived
+  51   2                      for(c=80;c>0;c--){
+  52   3                              for(b=40;b>0;b--){
+  53   4                                      for(a=114;a>0;a--){
+  54   5                                              if(AngleNew>0   &&  AngleNew<60)        {P0=0xFF;P1=0xFF;P2=0xFF;}
+C51 COMPILER V9.00   MILEAGE                                                               01/06/2016 22:02:20 PAGE 2   
+
+*** ERROR C202 IN LINE 54 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  55   5                                              if(AngleNew>60  &&  AngleNew<120)       {P0=0x0C;P1=0x0C;P2=0x0C;}
+*** ERROR C202 IN LINE 55 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  56   5                                              if(AngleNew>120 &&  AngleNew<180)       {P0=0xFF;P1=0xFF;P2=0xFF;}
+*** ERROR C202 IN LINE 56 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  57   5                                              if(AngleNew>180 &&  AngleNew<240)       {P0=0x0C;P1=0x0C;P2=0x0C;}
+*** ERROR C202 IN LINE 57 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  58   5                                              if(AngleNew>240 &&  AngleNew<300)       {P0=0xFF;P1=0xFF;P2=0xFF;}
+*** ERROR C202 IN LINE 58 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  59   5                                              if(AngleNew>300 &&  AngleNew<360)       {P0=0x0C;P1=0x0C;P2=0x0C;}
+*** ERROR C202 IN LINE 59 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  60   5                                      }
+  61   4                              }
+  62   3                      }
+  63   2                      P0=0x00;
+  64   2                      for(c=330;c>0;c--){
+  65   3                              for(b=40;b>0;b--){
+  66   4                                      for(a=114;a>0;a--);
+  67   4                              }
+  68   3                      }
+  69   2                      for(c=80;c>0;c--){
+  70   3                              for(b=40;b>0;b--){
+  71   4                                      for(a=114;a>0;a--){
+  72   5                                              if(AngleNew>0   &&  AngleNew<60)        {P0=0xFF;P1=0xFF;P2=0xFF;}
+*** ERROR C202 IN LINE 72 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  73   5                                              if(AngleNew>60  &&  AngleNew<120)       {P0=0x0C;P1=0x0C;P2=0x0C;}
+*** ERROR C202 IN LINE 73 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  74   5                                              if(AngleNew>120 &&  AngleNew<180)       {P0=0xFF;P1=0xFF;P2=0xFF;}
+*** ERROR C202 IN LINE 74 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  75   5                                              if(AngleNew>180 &&  AngleNew<240)       {P0=0x0C;P1=0x0C;P2=0x0C;}
+*** ERROR C202 IN LINE 75 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  76   5                                              if(AngleNew>240 &&  AngleNew<300)       {P0=0xFF;P1=0xFF;P2=0xFF;}
+*** ERROR C202 IN LINE 76 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  77   5                                              if(AngleNew>300 &&  AngleNew<360)       {P0=0x0C;P1=0x0C;P2=0x0C;}
+*** ERROR C202 IN LINE 77 OF ..\..\微机小作业\MILEAGE.C: 'AngleNew': undefined identifier
+  78   5      
+  79   5                                      }
+  80   4                              }
+  81   3                      }
+  82   2                      P0=0x00;
+  83   2                      for(c=330;c>0;c--){
+  84   3                              for(b=40;b>0;b--){
+  85   4                                      for(a=114;a>0;a--);
+  86   4                              }
+  87   3                      }
+  88   2              
+  89   2              
+  90   2              }
+  91   1              
+  92   1      }
+  93          
+  94          
+  95          
+  96          void mile_display(){
+  97   1                      if(Dist==20) display_distance(1);
+*** ERROR C202 IN LINE 97 OF ..\..\微机小作业\MILEAGE.C: 'Dist': undefined identifier
+  98   1                      if(Dist==40) display_distance(2);
+*** ERROR C202 IN LINE 98 OF ..\..\微机小作业\MILEAGE.C: 'Dist': undefined identifier
+  99   1                      if(Dist==60) display_distance(3);
+*** ERROR C202 IN LINE 99 OF ..\..\微机小作业\MILEAGE.C: 'Dist': undefined identifier
+ 100   1      }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  15 ERROR(S)

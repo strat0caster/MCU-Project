@@ -1,0 +1,127 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Sam Song\Desktop\优生免考\MCU-Project\Test_Pattern.uvproj
+Project File Date:  01/06/2016
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling main.c...
+MAIN.C(19): warning C206: 'Timer0intial': missing function-prototype
+MAIN.C(24): error C202: 'wz0': undefined identifier
+MAIN.C(25): error C141: syntax error near '['
+MAIN.C(25): error C141: syntax error near ']'
+MAIN.C(25): error C202: 'MPU6050': undefined identifier
+MAIN.C(26): error C202: 'w': undefined identifier
+MAIN.C(27): error C202: 'w': undefined identifier
+MAIN.C(30): error C202: 'wz1': undefined identifier
+MAIN.C(31): error C202: 'speeding_flag': undefined identifier
+MAIN.C(33): error C202: 'wz0': undefined identifier
+MAIN.C(34): error C202: 'slowing_flag': undefined identifier
+MAIN.C(36): error C202: 'miles1': undefined identifier
+MAIN.C(37): error C202: 'miles_flag1': undefined identifier
+MAIN.C(40): error C202: 'miles1': undefined identifier
+MAIN.C(41): error C202: 'miles_flag2': undefined identifier
+MAIN.C(43): error C202: 'miles1': undefined identifier
+MAIN.C(44): error C202: 'miles_flag2': undefined identifier
+MAIN.C(48): error C202: 'turining_flag': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+MAIN.C(19): warning C206: 'Timer0intial': missing function-prototype
+MAIN.C(24): error C202: 'wz0': undefined identifier
+MAIN.C(25): error C141: syntax error near '['
+MAIN.C(25): error C141: syntax error near ']'
+MAIN.C(25): error C202: 'MPU6050': undefined identifier
+MAIN.C(26): error C202: 'w': undefined identifier
+MAIN.C(27): error C202: 'w': undefined identifier
+MAIN.C(30): error C202: 'wz1': undefined identifier
+MAIN.C(31): error C202: 'speeding_flag': undefined identifier
+MAIN.C(33): error C202: 'wz0': undefined identifier
+MAIN.C(34): error C202: 'slowing_flag': undefined identifier
+MAIN.C(36): error C202: 'miles1': undefined identifier
+MAIN.C(37): error C202: 'miles_flag1': undefined identifier
+MAIN.C(40): error C202: 'miles1': undefined identifier
+MAIN.C(41): error C202: 'miles_flag2': undefined identifier
+MAIN.C(43): error C202: 'miles1': undefined identifier
+MAIN.C(44): error C202: 'miles_flag2': undefined identifier
+MAIN.C(48): error C202: 'turining_flag': undefined identifier
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling main.c...
+MAIN.C(19): warning C206: 'Timer0intial': missing function-prototype
+MAIN.C(24): error C202: 'wz0': undefined identifier
+MAIN.C(25): error C141: syntax error near '['
+MAIN.C(25): error C141: syntax error near ']'
+MAIN.C(25): error C202: 'MPU6050': undefined identifier
+MAIN.C(26): error C202: 'w': undefined identifier
+MAIN.C(27): error C202: 'w': undefined identifier
+MAIN.C(30): error C202: 'wz1': undefined identifier
+MAIN.C(31): error C202: 'speeding_flag': undefined identifier
+MAIN.C(33): error C202: 'wz0': undefined identifier
+MAIN.C(34): error C202: 'slowing_flag': undefined identifier
+MAIN.C(36): error C202: 'miles1': undefined identifier
+MAIN.C(37): error C202: 'miles_flag1': undefined identifier
+MAIN.C(40): error C202: 'miles1': undefined identifier
+MAIN.C(41): error C202: 'miles_flag2': undefined identifier
+MAIN.C(43): error C202: 'miles1': undefined identifier
+MAIN.C(44): error C202: 'miles_flag2': undefined identifier
+MAIN.C(48): error C202: 'turining_flag': undefined identifier
+compiling mileage.c...
+..\..\微机小作业\MILEAGE.C(54): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(55): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(56): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(57): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(58): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(59): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(72): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(73): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(74): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(75): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(76): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(77): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(97): error C202: 'Dist': undefined identifier
+..\..\微机小作业\MILEAGE.C(98): error C202: 'Dist': undefined identifier
+..\..\微机小作业\MILEAGE.C(99): error C202: 'Dist': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+MAIN.C(19): warning C206: 'Timer0intial': missing function-prototype
+MAIN.C(24): error C202: 'wz0': undefined identifier
+MAIN.C(25): error C141: syntax error near '['
+MAIN.C(25): error C141: syntax error near ']'
+MAIN.C(25): error C202: 'MPU6050': undefined identifier
+MAIN.C(26): error C202: 'w': undefined identifier
+MAIN.C(27): error C202: 'w': undefined identifier
+MAIN.C(30): error C202: 'wz1': undefined identifier
+MAIN.C(31): error C202: 'speeding_flag': undefined identifier
+MAIN.C(33): error C202: 'wz0': undefined identifier
+MAIN.C(34): error C202: 'slowing_flag': undefined identifier
+MAIN.C(36): error C202: 'miles1': undefined identifier
+MAIN.C(37): error C202: 'miles_flag1': undefined identifier
+MAIN.C(40): error C202: 'miles1': undefined identifier
+MAIN.C(41): error C202: 'miles_flag2': undefined identifier
+MAIN.C(43): error C202: 'miles1': undefined identifier
+MAIN.C(44): error C202: 'miles_flag2': undefined identifier
+MAIN.C(48): error C202: 'turining_flag': undefined identifier
+compiling mileage.c...
+..\..\微机小作业\MILEAGE.C(54): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(55): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(56): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(57): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(58): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(59): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(72): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(73): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(74): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(75): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(76): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(77): error C202: 'AngleNew': undefined identifier
+..\..\微机小作业\MILEAGE.C(97): error C202: 'Dist': undefined identifier
+..\..\微机小作业\MILEAGE.C(98): error C202: 'Dist': undefined identifier
+..\..\微机小作业\MILEAGE.C(99): error C202: 'Dist': undefined identifier
+Target not created

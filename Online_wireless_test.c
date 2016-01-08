@@ -14,20 +14,23 @@ void StartRXD();
 
 void main(){
     EA = 1; //开总中断
-    ConfigUART(9600);
+    ConfigUART(115200);
 	P0=0;
     while (1){ //配置波特率为 9600
-        
-        StartTXD(P0); 
-        while (!TxdEnd);
+        while (!RxdEnd); //等待接收完成
+        StartRXD(); //启动接收
+        while (!RxdEnd); //等待接收完成
+        P0=RxdBuf;
     }
 }
+
 /* 串口配置函数，baud-通信波特率 */
 void ConfigUART(unsigned int baud){
     TMOD &= 0xF0; //清零 T0 的控制位
     TMOD |= 0x02; //配置 T0 为模式 2
     TH0 = 256 - (11059200/12)/baud; //计算 T0 重载值
 }
+
 /* 启动串行接收 */
 void StartRXD(){
     TL0 = 256 - ((256-TH0)>>1); //接收启动时的 T0 定时为半个波特率周期
@@ -36,6 +39,7 @@ void StartRXD(){
     RxdEnd = 0; //清零接收结束标志
     RxdOrTxd = 0; //设置当前状态为接收
 }
+
 /* 启动串行发送，dat-待发送字节数据 */
 void StartTXD(unsigned char dat){
     TxdBuf = dat; //待发送数据保存到发送缓冲器
@@ -46,6 +50,7 @@ void StartTXD(unsigned char dat){
     TxdEnd = 0; //清零发送结束标志
     RxdOrTxd = 1; //设置当前状态为发送
 }
+
 /* T0 中断服务函数，处理串行发送和接收 */
 void InterruptTimer0() interrupt 1{
     static unsigned char cnt = 0; //位接收或发送计数

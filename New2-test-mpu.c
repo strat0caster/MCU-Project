@@ -1,6 +1,9 @@
 #include <reg51.h>
 #include <intrins.h>
 #include <math.h>
+#include "mileage.h"
+
+//实现半圆周定义稳定图案输出
 
 sfr AUXR=0x8E;
 sfr T2CON=0xC8;
@@ -16,38 +19,52 @@ int Receive_Buff[11];
 unsigned char counter=0,test=0;
 int a1=0,a2=0,a3=0;
 int timer=0;
-double AngleNew=0;
+extern int Dist=0;
+extern double AngleNew=0;
+bit Flag=0;
 
+void Delay10ms(unsigned int c)   //误差 0us
+{
+    unsigned char a, b;
+
+	//--c已经在传递过来的时候已经赋值了，所以在for语句第一句就不用赋值了--//
+    for (;c>0;c--)
+	{
+		for (b=38;b>0;b--)
+		{
+			for (a=130;a>0;a--);
+		}
+           
+	}
+        
+} 
 
 void main(void) {
 	unsigned char LED;
 	void UartInit();
-	UartInit();
+	UartInit();																							 	
 	while(1){
-			// if(w[0]<1000){
-			// 	if( Angle[0] >2000){
-			// 	LED=0x00;
-			// 	}
-			// 	else{
-			// 	LED=0xFF;
-			// 	}
+		P1=0x0f;
+		Delay10ms(100);
+		P1=0xf0;
+		Delay10ms(100);
+			// if( AngleNew>=0&&AngleNew<120){
+			// 	P0=0x0F;
+			// 	P1=0xFF;
+			// }
+			// else if(AngleNew>120&&AngleNew<240){
+			// 	P1=0x0F;
+			// 	P0=0xFF;
 			// }
 			// else{
-			if( AngleNew >30){
-				LED=0x00;
-			}
-			else{
-				LED=0xFF;
-			}
+			// 	P0=0xFF;
+			// 	P1=0xFF;
 			// }
-		P0=LED;
+		
 	}
-
 }
 
-
-
-void UartInit(void)		//9600bps@11.0592MHz
+void UartInit(void)		//115200bps@11.0592MHz
 {
 	EA=1;
 	ES=1;
@@ -62,7 +79,7 @@ void UartInit(void)		//9600bps@11.0592MHz
 	TL1=0xFD;
 	ET1=0;
   TR1=1;
-//以上为UART方式1，9600波特率；已经测试成功，可以收到并中断;TL1!!!!!
+//以上为UART方式1，115200波特率；已经测试成功，可以收到并中断;TL1!!!!!
 */
 	SCON = 0x50;		//8???,?????
 	RCAP2L = 0xFD;
@@ -74,7 +91,7 @@ void UartInit(void)		//9600bps@11.0592MHz
 
 void ser() interrupt 4
 {
-	if (RI)
+	if(RI)
 	{
 		RI=0;	
 		Receive_Buff[counter]=SBUF;	
@@ -90,12 +107,26 @@ void ser() interrupt 4
 			{
 			case 0x51:
 			a[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
-//			a[0]=(Receive_Buff[5]<<8|Receive_Buff[4]);
-			AngleNew=asin(a[0]/2048.0)*57.3;//利用x轴加速度方向判断方位角			
-			// a1=a2;
-			// a2=a3;
-			// a3=a[1];
-			// if(a1>a2&&a2<a3){//固定点判断
+//			a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+			a1=a2;
+			a2=a3;
+			a3=a[0];
+			if(a1>=a2&&a2<=a3){//固定点判断
+				Flag=1;
+			}
+			if(a1<=a2&&a2>=a3){
+				Flag=0;
+				if(w[1]>6553){
+					Dist++;
+				}
+			}
+			if(Flag==1){
+				AngleNew=asin(a[0]/2048.0)*57.3+90;//利用x轴加速度方向判断方位角			
+			}
+			else{
+				AngleNew=270-asin(a[0]/2048.0)*57.3;
+			}
+			// }
 			// 	AngleNew=0;
 			// }
 			// if(w[1]>1000&&a1>a2&&a2<a3){
@@ -103,9 +134,10 @@ void ser() interrupt 4
 			// }
 //			a[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*16;
 			break;
-			case 0x52:		
-			w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
-			// w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+			case 0x52:
+
+//			w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+			w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
 			// if(w[1]>1000)
 			// AngleNew+=w[1]/100;
 //			w[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*2000;

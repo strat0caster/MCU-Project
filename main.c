@@ -1,78 +1,205 @@
-//考虑之后感觉应该用全局变量来记录里程，且一并放入Timer0()中；
+#include <reg51.h>
+#include <intrins.h>
+#include <math.h>
+#include "mileage.h"
+
 #define D_Round 0.2  //定义
 #define pi 3.14159265358
 
-#include <lights.h>
 
-float wx,wy,wz,ax,ay,az;//raw data from MPU6050;quite likely that we won't use wy&ay though
-float miles=0;
-float delta_miles;
+bit turning_flag,speeding_flag,slowing_flag,miles_flag1,miles_flag2,miles_flag3;
+
+sfr AUXR=0x8E;
+sfr T2CON=0xC8;
+sfr RCAP2L=0xCA;
+sfr RCAP2H=0xCB;
+sfr TL2=0xCC;
+sfr TH2=0xCD;
+
+int a[3],w[3],Angle[3]; 
+//Angle[0]=Angle_X, Angle[1]=Angle_Y, Angle[2]=Angle_Z;
+//Angle_Z directly determines where it is ON THE WHEEL.
+int Receive_Buff[11];
+unsigned char counter=0,test=0;
+int a1=0,a2=0,a3=0;
+int timer=0;
+extern int Dist=0;
+extern double AngleNew=0;
+bit Flag=0;
+
 
 int main(){
-	int turning_flag;
-	EA=1;
-	ET0=1;                   //计时器0用于测速
-	ET1=1;                   //
-	EX0=1;
-	EX1=1;
-	ES=1;
-	Timer0intial();
-	
-	
+
+	unsigned char LED;
+	void UartInit();
+	void Cruise_Pattern();
+	void Speeding_Pattern();
+	void Slowing_Pattern();
+	void display_distance(int parameter);
+	UartInit();	
 
 	while(1){						                  //20ms
-		wz0=wz;
-		[wx,wy,wz,ax,ay,az]=read(MPU6050);            //读取数据的示意，具体代码参考MPU6050使用方法
-		w=sqrt(wx^2+wy^2);                            //用于转向判断
-		if(w>w0) {
-			turning_flag=1;
+
+		w_turning=sqrt(w[0]*w[0]+w[2]*w[2]);                            //用于转向判断
+		if(w_turning>w0) {
+			Turning_Pattern();
 		}
-		else if(wz-wz1>w1){									 //w1为快速加速阈值
-			speeding_flag=1;
+		else if(w[1]){									 //w1为快速加速阈值
+			Speeding_Pattern();
 		}
 		else if(wz0-wz>w2){  								  //w2为刹车阈值
-			slowing_flag=1;
-		}
-		else if(miles>miles1&&mildes<miles1+dmiles){		//dmiles 决定闪烁时间长短
-			miles_flag1=1;
-		}
-
-		else if(miles>miles1&&mildes<miles1+dmiles){		//dmiles 决定闪烁时间长短
-			miles_flag2=1;
-		}
-		else if(miles>miles1&&mildes<miles1+dmiles){		//dmiles 决定闪烁时间长短
-			miles_flag2=1;
-		}
-
-
-		if(turining_flag){
-			Turning_Pattern();
-			turning_flag=0;
-		}
-		else if(slowing_flag){
 			Slowing_Pattern();
-			slowing_flag=0;
 		}
-		else if(miles_flag1){
-			Miles_Pattern();
-			miles_flag1=0;
+		else if(Dist==20){		//dmiles 决定闪烁时间长短
+			display_distance(1);
 		}
-		else if(miles_flag2){
-			Miles_Pattern();
-			miles_flag2=0;
+		else if(Dist==40){		//dmiles 决定闪烁时间长短
+			display_distance(2);
+		}
+		else if(Dist==60){		//dmiles 决定闪烁时间长短
+			display_distance(3);
 		}
 		else{
 			Cruise_Pattern();
 		}
+
+
+		// if(turining_flag){
+		// 	Turning_Pattern();
+		// 	turning_flag=0;
+		// }
+		// else if(slowing_flag){
+
+		// }
+		// else if(slowing_flag){
+		// 	display_distance();
+		// 	slowing_flag=0;
+		// }
+		// else if(miles_flag1){
+		// 	display_distance(1);
+		// 	miles_flag1=0;
+		// }
+		// else if(miles_flag2){
+		// 	display_distance(2);
+		// 	miles_flag2=0;
+		// }
+		// else if(miles_flag3){
+		// 	display_distance(3);
+		// 	miles_flag3=0;
+		// }
+		// else{
+		// 	Cruise_Pattern();
+		// }
 		
 	}
 	
 }
 
-void Timer0() interrupt 1
+void UartInit(void)		//115200bps@11.0592MHz
 {
-	TH0= 0x3c;
-	TL0= 0xB0;
-	delta_miles=50*2*pi/wz*D_round;
-	miles=miles+delta_miles; 
+	EA=1;
+	ES=1;
+/*/
+	PCON&=0x7F;
+	SCON=0x50;
+	AUXR &= 0xBF;		
+	AUXR &= 0xFE;		
+	TMOD&=0x0F;
+	TMOD|=0x20;
+	TH1=0xFD;
+	TL1=0xFD;
+	ET1=0;
+  TR1=1;
+//以上为UART方式1，115200波特率；已经测试成功，可以收到并中断;TL1!!!!!
+*/
+	SCON = 0x50;		//8???,?????
+	RCAP2L = 0xFD;
+	RCAP2H = 0xFF;
+	TL2 = 0xFD;		//??????
+	TH2 = 0xFF;		//??????
+	T2CON=0x34;
+}
+
+void Cruise_Pattern(){
+	if( AngleNew>0&&AngleNew<120){
+				P0=0x0F;
+				P1=0xFF;
+		}
+	else if(AngleNew>120&&AngleNew<240){
+				P1=0x0F;
+				P0=0xFF;
+		}
+	else{
+			P0=0xFF;
+			P1=0xFF;
+	}
+}
+
+void ser() interrupt 4
+{
+	if(RI)
+	{
+		RI=0;	
+		Receive_Buff[counter]=SBUF;	
+		
+	  if(counter==0&&Receive_Buff[0]!=0x55) return;      //第0号数据不是帧头
+	  counter++;
+		
+	  if(counter==11)             //接收到11个数据
+	    {
+	       counter=0;               //重新赋值，准备下一帧数据的接收        
+
+			switch(Receive_Buff [1])
+			{
+			case 0x51:
+			a[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+//			a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+			a1=a2;
+			a2=a3;
+			a3=a[0];
+			if(a1>=a2&&a2<=a3){//固定点判断
+				Flag=1;
+			}
+			if(a1<=a2&&a2>=a3){
+				Flag=0;
+				if(w[1]>6553){
+					Dist++;
+				}
+			}
+			if(Flag==1){
+				AngleNew=asin(a[0]/2048.0)*57.3+90;//利用x轴加速度方向判断方位角			
+			}
+			else{
+				AngleNew=270-asin(a[0]/2048.0)*57.3;
+			}
+			// }
+			// 	AngleNew=0;
+			// }
+			// if(w[1]>1000&&a1>a2&&a2<a3){
+			// 	AngleNew=0;
+			// }
+//			a[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*16;
+			break;
+			case 0x52:
+
+//			w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+			w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+			// if(w[1]>1000)
+			// AngleNew+=w[1]/100;
+//			w[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*2000;
+			break;
+			case 0x53: 
+//			Angle[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+//			Angle[1]=(Receive_Buff[5]<<8|Receive_Buff[4])/32768.0*180;
+//			Angle[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*180;
+			break;
+			default: break;
+			} 
+	      }
+
+	  }
+	
+		if(TI){
+			TI=0;
+		}
 }
