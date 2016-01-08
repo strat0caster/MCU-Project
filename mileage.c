@@ -1,13 +1,11 @@
 #include "mileage.h"
+#define distance_1 40
+#define distance_2 120
+#define distance_3 200
 
-void delay_10ms(int times){
-	unsigned char a,b;
-	for(;times>0;times--){
-		for(b=40;b>0;b--){
-			for(a=114;a>0;a--);
-		}
-	}
-}
+int dist;
+double AngleNew;
+
 
 
 void display_distance(int parameter){
@@ -39,56 +37,48 @@ void display_distance(int parameter){
 		P0=0x24;		delay_10ms(10);
 		P0=0x42;		delay_10ms(10);
 		P0=0x81;		delay_10ms(10);
+		P0=0x00;		delay_10ms(10);
+		P0=0xFF;		delay_10ms(10);
+		P0=0x00;		delay_10ms(10);
+		P0=0xFF;		delay_10ms(10);
+		P0=0x00;		delay_10ms(10);
+		P0=0xFF;		delay_10ms(10);
 		P0=0x00;		delay_10ms(30);
-		P0=0xFF;		delay_10ms(10);
-		P0=0x00;		delay_10ms(10);
-		P0=0xFF;		delay_10ms(10);
-		P0=0x00;		delay_10ms(10);
-		P0=0xFF;		delay_10ms(10);
-		P0=0x00;		delay_10ms(40);
 		
 		case 3:  // distance 3 arrived
-		for(c=80;c>0;c--){
-			for(b=40;b>0;b--){
-				for(a=114;a>0;a--){
-					if(AngleNew>0   &&  AngleNew<60)	{P0=0xFF;P1=0xFF;P2=0xFF;}
-					if(AngleNew>60  &&  AngleNew<120)	{P0=0x0C;P1=0x0C;P2=0x0C;}
-					if(AngleNew>120 &&  AngleNew<180)	{P0=0xFF;P1=0xFF;P2=0xFF;}
-					if(AngleNew>180 &&  AngleNew<240)	{P0=0x0C;P1=0x0C;P2=0x0C;}
-					if(AngleNew>240 &&  AngleNew<300)	{P0=0xFF;P1=0xFF;P2=0xFF;}
-					if(AngleNew>300 &&  AngleNew<360)	{P0=0x0C;P1=0x0C;P2=0x0C;}
-				}
+		for(b=40;b>0;b--){
+			for(a=114;a>0;a--){
+				if(AngleNew>0   &&  AngleNew<60)	{P0=0xFF;P1=0xFF;P2=0xFF;}
+				if(AngleNew>60  &&  AngleNew<120)	{P0=0x0C;P1=0x0C;P2=0x0C;}
+				if(AngleNew>120 &&  AngleNew<180)	{P0=0xFF;P1=0xFF;P2=0xFF;}
+				if(AngleNew>180 &&  AngleNew<240)	{P0=0x0C;P1=0x0C;P2=0x0C;}
+				if(AngleNew>240 &&  AngleNew<300)	{P0=0xFF;P1=0xFF;P2=0xFF;}
+				if(AngleNew>300 &&  AngleNew<360)	{P0=0x0C;P1=0x0C;P2=0x0C;}
 			}
 		}
-		P0=0x00;
-		for(c=330;c>0;c--){
+		P0=0xFF;
+		for(c=33;c>0;c--){
 			for(b=40;b>0;b--){
 				for(a=114;a>0;a--);
 			}
 		}
-		for(c=80;c>0;c--){
-			for(b=40;b>0;b--){
-				for(a=114;a>0;a--){
-					if(AngleNew>0   &&  AngleNew<60)	{P0=0xFF;P1=0xFF;P2=0xFF;}
-					if(AngleNew>60  &&  AngleNew<120)	{P0=0x0C;P1=0x0C;P2=0x0C;}
-					if(AngleNew>120 &&  AngleNew<180)	{P0=0xFF;P1=0xFF;P2=0xFF;}
-					if(AngleNew>180 &&  AngleNew<240)	{P0=0x0C;P1=0x0C;P2=0x0C;}
-					if(AngleNew>240 &&  AngleNew<300)	{P0=0xFF;P1=0xFF;P2=0xFF;}
-					if(AngleNew>300 &&  AngleNew<360)	{P0=0x0C;P1=0x0C;P2=0x0C;}
-
-				}
+		for(b=40;b>0;b--){
+			for(a=114;a>0;a--){
+				if(AngleNew>0   &&  AngleNew<60)	{P0=0xFF;P1=0xFF;P2=0xFF;}
+				if(AngleNew>60  &&  AngleNew<120)	{P0=0x0C;P1=0x0C;P2=0x0C;}
+				if(AngleNew>120 &&  AngleNew<180)	{P0=0xFF;P1=0xFF;P2=0xFF;}
+				if(AngleNew>180 &&  AngleNew<240)	{P0=0x0C;P1=0x0C;P2=0x0C;}
+				if(AngleNew>240 &&  AngleNew<300)	{P0=0xFF;P1=0xFF;P2=0xFF;}
+				if(AngleNew>300 &&  AngleNew<360)	{P0=0x0C;P1=0x0C;P2=0x0C;}
 			}
 		}
-		P0=0x00;
-		for(c=330;c>0;c--){
+		P0=0xFF;
+		for(c=33;c>0;c--){
 			for(b=40;b>0;b--){
 				for(a=114;a>0;a--);
 			}
 		}
-	
-	
 	}
-	
 }
 
 

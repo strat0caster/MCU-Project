@@ -9,8 +9,6 @@ sfr TL2=0xCC;
 sfr TH2=0xCD;
 
 int a[3],w[3],Angle[3]; 
-//Angle[0]=Angle_X, Angle[1]=Angle_Y, Angle[2]=Angle_Z;
-//Angle_Z directly determines where it is ON THE WHEEL.
 int Receive_Buff[11];
 unsigned char counter=0,test=0;
 int low_8=0, high_8=0;

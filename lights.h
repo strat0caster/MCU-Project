@@ -4,6 +4,7 @@
 //mainly just adding all sorts of header files in
 
 #include "reg51.h"
+
 //#include <MPU6050.h>
 // downloaded already from github;
 
@@ -15,9 +16,9 @@
 // led pattern module
 // contains functions for displaying different patterns.
 
-//#include <miles.h>
+#include "mileage.h"
 // mileage module
-// contains functions for integrating speed to get the mileage/distance.
+// contains functions for mileage patterns
 
 //#include <turning.h>
 // turning status module
@@ -27,6 +28,11 @@
 //#include <supersonic.h>
 // reserved for the supersonic distance measuring and alarming module;
 // only de-comment if progress allows 
+// seems useless now
+
+#include "delay.h"
+
+//#include "bluetooth.h"
 
 #endif
 
