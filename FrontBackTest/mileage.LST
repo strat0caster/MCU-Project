@@ -1,0 +1,124 @@
+C51 COMPILER V9.00   MILEAGE                                                               01/09/2016 15:19:33 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE MILEAGE
+OBJECT MODULE PLACED IN mileage.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE mileage.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "mileage.h"
+   2          
+   3          double AngleNew;
+   4          int Dist;
+   5          
+   6          
+   7          
+   8          
+   9          void display_distance(int parameter){
+  10   1              switch (parameter){
+  11   2                      unsigned char a,b,c;
+  12   2                      
+  13   2                      case 1:  // distance 1 arrived
+  14   2                      P0=0xFE;                delay_10ms(10);
+  15   2                      P0=0xFD;                delay_10ms(10);
+  16   2                      P0=0xFB;                delay_10ms(10);
+  17   2                      P0=0xF7;                delay_10ms(10);
+  18   2                      P0=0xEF;                delay_10ms(10);
+  19   2                      P0=0xDF;                delay_10ms(10);
+  20   2                      P0=0xBF;                delay_10ms(10);
+  21   2                      P0=0x7F;                delay_10ms(10);
+  22   2                      P0=0xBF;                delay_10ms(10);
+  23   2                      P0=0xDF;                delay_10ms(10);
+  24   2                      P0=0xEF;                delay_10ms(10);
+  25   2                      P0=0xF7;                delay_10ms(10);
+  26   2                      P0=0xFB;                delay_10ms(10);
+  27   2                      P0=0xFD;                delay_10ms(10);
+  28   2                      P0=0xFE;                delay_10ms(10);
+  29   2                      break;
+  30   2                      
+  31   2                      case 2:  // distance 2 arrived
+  32   2                      P0=0x7E;                delay_10ms(10);
+  33   2                      P0=0xBD;                delay_10ms(10);
+  34   2                      P0=0xDB;                delay_10ms(10);
+  35   2                      P0=0xE7;                delay_10ms(10);
+  36   2                      P0=0xDB;                delay_10ms(10);
+  37   2                      P0=0xBD;                delay_10ms(10);
+  38   2                      P0=0x7E;                delay_10ms(10);
+  39   2                      P0=0xFF;                delay_10ms(30);
+  40   2                      P0=0x00;                delay_10ms(10);
+  41   2                      P0=0xFF;                delay_10ms(10);
+  42   2                      P0=0x00;                delay_10ms(10);
+  43   2                      P0=0xFF;                delay_10ms(10);
+  44   2                      P0=0x00;                delay_10ms(10);
+  45   2                      P0=0xFF;                delay_10ms(40);
+  46   2                      break;
+  47   2                      
+  48   2                      case 3:  // distance 3 arrived
+  49   2                      for(c=10;c>0;c--){
+  50   3                              for(b=40;b>0;b--){
+  51   4                                      for(a=114;a>0;a--){
+  52   5                                              if(AngleNew>0   &&  AngleNew<60)        {P0=0x00;P1=0x00;P2=0x00;}
+  53   5                                              if(AngleNew>60  &&  AngleNew<120)       {P0=0xF3;P1=0xF3;P2=0xF3;}
+  54   5                                              if(AngleNew>120 &&  AngleNew<180)       {P0=0x00;P1=0x00;P2=0x00;}
+  55   5                                              if(AngleNew>180 &&  AngleNew<240)       {P0=0xF3;P1=0xF3;P2=0xF3;}
+C51 COMPILER V9.00   MILEAGE                                                               01/09/2016 15:19:33 PAGE 2   
+
+  56   5                                              if(AngleNew>240 &&  AngleNew<300)       {P0=0x00;P1=0x00;P2=0x00;}
+  57   5                                              if(AngleNew>300 &&  AngleNew<360)       {P0=0xF3;P1=0xF3;P2=0xF3;}
+  58   5                                      }
+  59   4                              }
+  60   3                      }
+  61   2                      P0=0x00;
+  62   2                      for(c=33;c>0;c--){
+  63   3                              for(b=40;b>0;b--){
+  64   4                                      for(a=114;a>0;a--);
+  65   4                              }
+  66   3                      }
+  67   2                      for(c=10;c>0;c--){
+  68   3                              for(b=40;b>0;b--){
+  69   4                                      for(a=114;a>0;a--){
+  70   5                                              if(AngleNew>0   &&  AngleNew<60)        {P0=0xFF;P1=0xFF;P2=0xFF;}
+  71   5                                              if(AngleNew>60  &&  AngleNew<120)       {P0=0x0C;P1=0x0C;P2=0x0C;}
+  72   5                                              if(AngleNew>120 &&  AngleNew<180)       {P0=0xFF;P1=0xFF;P2=0xFF;}
+  73   5                                              if(AngleNew>180 &&  AngleNew<240)       {P0=0x0C;P1=0x0C;P2=0x0C;}
+  74   5                                              if(AngleNew>240 &&  AngleNew<300)       {P0=0xFF;P1=0xFF;P2=0xFF;}
+  75   5                                              if(AngleNew>300 &&  AngleNew<360)       {P0=0x0C;P1=0x0C;P2=0x0C;}
+  76   5      
+  77   5                                      }
+  78   4                              }
+  79   3                      }
+  80   2                      P0=0x00;
+  81   2                      for(c=33;c>0;c--){
+  82   3                              for(b=40;b>0;b--){
+  83   4                                      for(a=114;a>0;a--);
+  84   4                              }
+  85   3                      }
+  86   2                      break;
+  87   2                      default : break;
+  88   2              
+  89   2              }
+  90   1              
+  91   1      }
+  92          
+  93          
+  94          
+  95          void mile_display(){
+  96   1                      if(Dist==20) display_distance(1);
+  97   1                      if(Dist==40) display_distance(2);
+  98   1                      if(Dist==60) display_distance(3);
+  99   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1072    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

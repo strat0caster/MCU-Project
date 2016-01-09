@@ -1,7 +1,9 @@
 #include <reg51.h>
 #include <intrins.h>
 #include <math.h>
-#include "mileage.h"
+//#include "mileage.h"
+#include "turning.h"
+#include "delay.h"
 
 //实现半圆周定义稳定图案输出
 
@@ -23,42 +25,58 @@ extern int Dist=0;
 extern double AngleNew=0;
 bit Flag=0;
 float w_turning=0;
+int k=0;
+
+   
 
 void main(void) {
-	unsigned char LED;
 	void UartInit();
 	UartInit();																							 	
 	while(1){
-	// w_turning=(w[0]*w[0]+w[2]*w[2]);
-	 // if(w_turning>500)
-	 // {
-	 // 	P0=0x00;
-	 // 	P1=0x00;
-	 // 	P2=0x00;
-	 // }	
-	 // else if(AngleNew>0&&AngleNew<120){
-	 // 	P0=0xfe;
-	 // 	P1=0xff;
-		// P2=0xff;
-	 // }
-	 // else if(AngleNew>120&&AngleNew<210){
-	 // 	P0=0xff;
-	 // 	P1=0xfe;
-		// P2=0xff;
-	 // }
-	 // else if(AngleNew>240&&AngleNew<330){
-	 // 	P0=0xff;
-	 // 	P1=0xff;
-	 // 	P2=0xfe;
-	 // }
-	 // else{
-	 // 	P0=0xff;
-	 // 	P1=0xff;
-	 // 	P2=0xff;
-	 // }
 
-	
-
+		
+	 // w_turning=(w[0]*w[0]+w[2]*w[2]);
+	 //  if(w_turning>250000)
+	 //  {
+	 //  	P0=0x00;
+	 //  	P1=0x00;
+	 //  	P2=0x00;
+	 //  }	
+	 //  else if(AngleNew>0&&AngleNew<45){
+	 //  	P0=0xfe;
+	 //  	P1=0xff;
+	 //  	P2=0xfe;
+	 //  }
+	 //  else if(AngleNew>0&&AngleNew<110){
+	 //  	P0=0xfe;
+	 //  	P1=0xff;
+	 //    P2=0xff;
+	 //  }  
+	 //  else if(AngleNew>110&&AngleNew<180){
+	 //  	P0=0xfe;
+	 //  	P1=0xfe;
+	 //    P2=0xff;
+	 //  }
+	 //  else if(AngleNew>180&&AngleNew<290){
+	 //  	P0=0xff;
+	 //  	P1=0xfe;
+	 //    P2=0xff;
+	 //  }
+	 //  else if(AngleNew>225&&AngleNew<290){
+	 //  	P0=0xff;
+	 //  	P1=0xfe;
+	 //    P2=0xfe;
+	 //  }
+	 //  else if(AngleNew>290&&AngleNew<360){
+	 //  	P0=0xff;
+	 //  	P1=0xff;
+	 //  	P2=0xfe;
+	 //  }
+	 //  else{
+	 //  	P0=0xff;
+	 //  	P1=0xff;
+	 //  	P2=0xff;
+	 // }
 	}
 }
 
@@ -124,6 +142,7 @@ void ser() interrupt 4
 			else{
 				AngleNew=270-asin(a[0]/2048.0)*57.3;
 			}
+			k++;
 			// }
 			// 	AngleNew=0;
 			// }

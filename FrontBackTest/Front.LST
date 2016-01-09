@@ -1,0 +1,160 @@
+C51 COMPILER V9.00   FRONT                                                                 01/09/2016 12:01:27 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE FRONT
+OBJECT MODULE PLACED IN Front.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Front.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include <intrins.h>
+   3          #include <math.h>
+   4          #include "mileage.h"
+   5          #include "turning.h"
+   6          #include "delay.h"
+   7          
+   8          //实现半圆周定义稳定图案输出
+   9          
+  10          sfr AUXR=0x8E;
+  11          sfr T2CON=0xC8;
+  12          sfr RCAP2L=0xCA;
+  13          sfr RCAP2H=0xCB;
+  14          sfr TL2=0xCC;
+  15          sfr TH2=0xCD;
+  16          
+  17          int a[3],w[3],Angle[3]; 
+  18          int Receive_Buff[11];
+  19          unsigned char counter=0,test=0;
+  20          int a1=0,a2=0,a3=0;
+  21          int timer=0;
+  22          extern int Dist=0;
+  23          extern double AngleNew=0;
+  24          bit Flag=0;
+  25          float w_turning=0;
+  26          int k=0;
+  27          
+  28          
+  29          
+  30          
+  31          
+  32          void main(void) {
+  33   1              void UartInit();
+  34   1              UartInit();                                                                                                                                                                                             
+  35   1              while(1){
+  36   2                      if(AngleNew>0){
+  37   3                              P0=0x00;
+  38   3                      }
+  39   2                      else{
+  40   3                              P0=0xff;
+  41   3                      }
+  42   2              }
+  43   1      }
+  44          
+  45          
+  46          
+  47          
+  48          void UartInit(void)             //115200bps@11.0592MHz
+  49          {
+  50   1              EA=1;
+  51   1              ES=1;
+  52   1      
+  53   1              SCON = 0x50;            //8???,?????
+  54   1              RCAP2L = 0xFD;
+  55   1              RCAP2H = 0xFF;
+C51 COMPILER V9.00   FRONT                                                                 01/09/2016 12:01:27 PAGE 2   
+
+  56   1              TL2 = 0xFD;             //??????
+  57   1              TH2 = 0xFF;             //??????
+  58   1              T2CON=0x34;
+  59   1      }
+  60          
+  61          void ser() interrupt 4
+  62          {
+  63   1              if(RI)
+  64   1              {
+  65   2                      RI=0;   
+  66   2                      Receive_Buff[counter]=SBUF;     
+  67   2                      
+  68   2                if(counter==0&&Receive_Buff[0]!=0x55) return;      //第0号数据不是帧头
+  69   2                counter++;
+  70   2                      
+  71   2                if(counter==11)             //接收到11个数据
+  72   2                  {
+  73   3                     counter=0;               //重新赋值，准备下一帧数据的接收        
+  74   3      
+  75   3                              switch(Receive_Buff [1])
+  76   3                              {
+  77   4                              case 0x51:
+  78   4                              a[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+  79   4      //                      a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+  80   4                              AngleNew=asin(a[0]/2048.0)*57.3;
+  81   4                              // a1=a2;
+  82   4                              // a2=a3;
+  83   4                              // a3=a[0];
+  84   4                              // if(a1>=a2&&a2<=a3){//固定点判断
+  85   4                              //      Flag=0;
+  86   4                              // }
+  87   4                              // if(a1<=a2&&a2>=a3){
+  88   4                              //      Flag=1;
+  89   4                              //      if(w[1]>6553){
+  90   4                              //              Dist++;
+  91   4                              //      }
+  92   4                              // }
+  93   4                              // if(Flag==1){
+  94   4                              //      AngleNew=asin(a[0]/2048.0)*57.3+90;//利用x轴加速度方向判断方位角                   
+  95   4                              // }
+  96   4                              // else{
+  97   4                              //      AngleNew=270-asin(a[0]/2048.0)*57.3;
+  98   4                              // }
+  99   4                              // k++;
+ 100   4                              // }
+ 101   4                              //      AngleNew=0;
+ 102   4                              // }
+ 103   4                              // if(w[1]>1000&&a1>a2&&a2<a3){
+ 104   4                              //      AngleNew=0;
+ 105   4                              // }
+ 106   4      //                      a[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*16;
+ 107   4                              break;
+ 108   4                              case 0x52:
+ 109   4      
+ 110   4                              w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+ 111   4                              w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+ 112   4                              w[2]=(Receive_Buff[7]<<8|Receive_Buff[6]);
+ 113   4      
+ 114   4                              // if(w[1]>1000)
+ 115   4                              // AngleNew+=w[1]/100;
+ 116   4      
+ 117   4      //                      w[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*2000;
+C51 COMPILER V9.00   FRONT                                                                 01/09/2016 12:01:27 PAGE 3   
+
+ 118   4                              break;
+ 119   4                              case 0x53: 
+ 120   4      //                      Angle[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+ 121   4      //                      Angle[1]=(Receive_Buff[5]<<8|Receive_Buff[4])/32768.0*180;
+ 122   4      //                      Angle[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*180;
+ 123   4                              break;
+ 124   4                              default: break;
+ 125   4                              } 
+ 126   3                    }
+ 127   2      
+ 128   2                }
+ 129   1              
+ 130   1                      if(TI){
+ 131   2                              TI=0;
+ 132   2                      }
+ 133   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    255    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     56    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

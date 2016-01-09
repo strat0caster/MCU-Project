@@ -1,0 +1,208 @@
+C51 COMPILER V9.00   6_4                                                                   01/09/2016 11:11:41 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE 6_4
+OBJECT MODULE PLACED IN 6-4.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 6-4.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include <intrins.h>
+   3          #include <math.h>
+   4          //#include "mileage.h"
+   5          #include "turning.h"
+   6          #include "delay.h"
+   7          
+   8          //实现半圆周定义稳定图案输出
+   9          
+  10          sfr AUXR=0x8E;
+  11          sfr T2CON=0xC8;
+  12          sfr RCAP2L=0xCA;
+  13          sfr RCAP2H=0xCB;
+  14          sfr TL2=0xCC;
+  15          sfr TH2=0xCD;
+  16          
+  17          int a[3],w[3],Angle[3]; 
+  18          //Angle[0]=Angle_X, Angle[1]=Angle_Y, Angle[2]=Angle_Z;
+  19          //Angle_Z directly determines where it is ON THE WHEEL.
+  20          int Receive_Buff[11];
+  21          unsigned char counter=0,test=0;
+  22          int a1=0,a2=0,a3=0;
+  23          int timer=0;
+  24          extern int Dist=0;
+  25          extern double AngleNew=0;
+  26          bit Flag=0;
+  27          float w_turning=0;
+  28          int k=0;
+  29          
+  30             
+  31          
+  32          void main(void) {
+  33   1              void UartInit();
+  34   1              UartInit();                                                                                                                                                                                             
+  35   1              while(1){
+  36   2      
+  37   2                      
+  38   2               // w_turning=(w[0]*w[0]+w[2]*w[2]);
+  39   2               //  if(w_turning>250000)
+  40   2               //  {
+  41   2               //     P0=0x00;
+  42   2               //     P1=0x00;
+  43   2               //     P2=0x00;
+  44   2               //  }  
+  45   2               //  else if(AngleNew>0&&AngleNew<45){
+  46   2               //     P0=0xfe;
+  47   2               //     P1=0xff;
+  48   2               //     P2=0xfe;
+  49   2               //  }
+  50   2               //  else if(AngleNew>0&&AngleNew<110){
+  51   2               //     P0=0xfe;
+  52   2               //     P1=0xff;
+  53   2               //    P2=0xff;
+  54   2               //  }  
+  55   2               //  else if(AngleNew>110&&AngleNew<180){
+C51 COMPILER V9.00   6_4                                                                   01/09/2016 11:11:41 PAGE 2   
+
+  56   2               //     P0=0xfe;
+  57   2               //     P1=0xfe;
+  58   2               //    P2=0xff;
+  59   2               //  }
+  60   2               //  else if(AngleNew>180&&AngleNew<290){
+  61   2               //     P0=0xff;
+  62   2               //     P1=0xfe;
+  63   2               //    P2=0xff;
+  64   2               //  }
+  65   2               //  else if(AngleNew>225&&AngleNew<290){
+  66   2               //     P0=0xff;
+  67   2               //     P1=0xfe;
+  68   2               //    P2=0xfe;
+  69   2               //  }
+  70   2               //  else if(AngleNew>290&&AngleNew<360){
+  71   2               //     P0=0xff;
+  72   2               //     P1=0xff;
+  73   2               //     P2=0xfe;
+  74   2               //  }
+  75   2               //  else{
+  76   2               //     P0=0xff;
+  77   2               //     P1=0xff;
+  78   2               //     P2=0xff;
+  79   2               // }
+  80   2              }
+  81   1      }
+  82          
+  83          void UartInit(void)             //115200bps@11.0592MHz
+  84          {
+  85   1              EA=1;
+  86   1              ES=1;
+  87   1      /*/
+  88   1              PCON&=0x7F;
+  89   1              SCON=0x50;
+  90   1              AUXR &= 0xBF;           
+  91   1              AUXR &= 0xFE;           
+  92   1              TMOD&=0x0F;
+  93   1              TMOD|=0x20;
+  94   1              TH1=0xFD;
+  95   1              TL1=0xFD;
+  96   1              ET1=0;
+  97   1        TR1=1;
+  98   1      //以上为UART方式1，115200波特率；已经测试成功，可以收到并中断;TL1!!!!!
+  99   1      */
+ 100   1              SCON = 0x50;            //8???,?????
+ 101   1              RCAP2L = 0xFD;
+ 102   1              RCAP2H = 0xFF;
+ 103   1              TL2 = 0xFD;             //??????
+ 104   1              TH2 = 0xFF;             //??????
+ 105   1              T2CON=0x34;
+ 106   1      }
+ 107          
+ 108          void ser() interrupt 4
+ 109          {
+ 110   1              if(RI)
+ 111   1              {
+ 112   2                      RI=0;   
+ 113   2                      Receive_Buff[counter]=SBUF;     
+ 114   2                      
+ 115   2                if(counter==0&&Receive_Buff[0]!=0x55) return;      //第0号数据不是帧头
+ 116   2                counter++;
+ 117   2                      
+C51 COMPILER V9.00   6_4                                                                   01/09/2016 11:11:41 PAGE 3   
+
+ 118   2                if(counter==11)             //接收到11个数据
+ 119   2                  {
+ 120   3                     counter=0;               //重新赋值，准备下一帧数据的接收        
+ 121   3      
+ 122   3                              switch(Receive_Buff [1])
+ 123   3                              {
+ 124   4                              case 0x51:
+ 125   4                              a[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+ 126   4      //                      a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+ 127   4                              a1=a2;
+ 128   4                              a2=a3;
+ 129   4                              a3=a[0];
+ 130   4                              if(a1>=a2&&a2<=a3){//固定点判断
+ 131   5                                      Flag=0;
+ 132   5                              }
+ 133   4                              if(a1<=a2&&a2>=a3){
+ 134   5                                      Flag=1;
+ 135   5                                      if(w[1]>6553){
+ 136   6                                              Dist++;
+ 137   6                                      }
+ 138   5                              }
+ 139   4                              if(Flag==1){
+ 140   5                                      AngleNew=asin(a[0]/2048.0)*57.3+90;//利用x轴加速度方向判断方位角                        
+ 141   5                              }
+ 142   4                              else{
+ 143   5                                      AngleNew=270-asin(a[0]/2048.0)*57.3;
+ 144   5                              }
+ 145   4                              k++;
+ 146   4                              // }
+ 147   4                              //      AngleNew=0;
+ 148   4                              // }
+ 149   4                              // if(w[1]>1000&&a1>a2&&a2<a3){
+ 150   4                              //      AngleNew=0;
+ 151   4                              // }
+ 152   4      //                      a[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*16;
+ 153   4                              break;
+ 154   4                              case 0x52:
+ 155   4      
+ 156   4                              w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+ 157   4                              w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+ 158   4                              w[2]=(Receive_Buff[7]<<8|Receive_Buff[6]);
+ 159   4      
+ 160   4                              // if(w[1]>1000)
+ 161   4                              // AngleNew+=w[1]/100;
+ 162   4      
+ 163   4      //                      w[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*2000;
+ 164   4                              break;
+ 165   4                              case 0x53: 
+ 166   4      //                      Angle[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+ 167   4      //                      Angle[1]=(Receive_Buff[5]<<8|Receive_Buff[4])/32768.0*180;
+ 168   4      //                      Angle[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*180;
+ 169   4                              break;
+ 170   4                              default: break;
+ 171   4                              } 
+ 172   3                    }
+ 173   2      
+ 174   2                }
+ 175   1              
+ 176   1                      if(TI){
+ 177   2                              TI=0;
+ 178   2                      }
+ 179   1      }
+C51 COMPILER V9.00   6_4                                                                   01/09/2016 11:11:41 PAGE 4   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    420    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     62    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
