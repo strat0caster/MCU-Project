@@ -27,6 +27,7 @@ sfr TH2=0xCD;
 extern int Dist;
 extern int AngleNew;
 extern bit dis_flag_1,dis_flag_2,dis_flag_3;
+extern int code digital_angle[360];
 
 void turning_pattern();
 void cruise_pattern();

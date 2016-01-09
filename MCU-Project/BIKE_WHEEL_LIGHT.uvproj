@@ -408,6 +408,16 @@
               <FileType>5</FileType>
               <FilePath>.\turning.h</FilePath>
             </File>
+            <File>
+              <FileName>speeding.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\speeding.c</FilePath>
+            </File>
+            <File>
+              <FileName>speeding.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\speeding.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

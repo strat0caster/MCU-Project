@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   SPEEDING                                                              01/08/2016 22:25:18 PAGE 1   
+C51 COMPILER V9.54   SPEEDING                                                              01/09/2016 16:21:14 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE SPEEDING
@@ -9,29 +9,49 @@ COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE speeding.c COMPACT OPTIMIZE(8,SP
 line level    source
 
    1          #include "speeding.h"
-   2          unsigned char acc_pattern_value[7]={0x3C,0x99,0xC3,0xE7,0xFF,0xFF,0xFF};
-   3          int S_P_i=0;
-   4          
-   5          void speeding_pattern(void){
-   6   1        if(S_P_i<7){
-   7   2          P0=acc_pattern_value[S_P_i];
-   8   2          P1=acc_pattern_value[S_P_i];
-   9   2          P2=acc_pattern_value[S_P_i];
-  10   2          S_P_i++;
-  11   2        } else{S_P_i=0;}
-  12   1        
-  13   1      }
-  14          
-  15          void slowing_pattern(void){
-  16   1        
-  17   1      }
+   2          #define acc_pattern_length 12
+   3          #define slow_pattern_length 12
+   4          //unsigned char acc_pattern_value[acc_pattern_length]={0x3C,0x99,0xC3,0xE7,0xE7,0xFF,0xFF,0xFF};
+   5          unsigned char acc_pattern_value[acc_pattern_length]={0x00,0x00,0x7e,0x3c,0x18,0x00,0x00,0x81,0xc3,0xe7,0x0
+             -0,0x00};
+   6          unsigned char slow_pattern_value[acc_pattern_length]={0x00,0x00,0xe7,0xc3,0x81,0x00,0x00,0x18,0x3c,0x7e,0x
+             -00,0x00};
+   7          int S_P_i=0,L_P_i=0;
+   8          
+   9          
+  10          void speeding_pattern(void){
+  11   1        if(dis_flag_1){dis_flag_1=0;};
+  12   1        if(dis_flag_2){dis_flag_2=0;};
+  13   1        if(dis_flag_3){dis_flag_3=0;};
+  14   1        if(S_P_i<acc_pattern_length){
+  15   2          P0=acc_pattern_value[S_P_i];
+  16   2          P1=acc_pattern_value[S_P_i];
+  17   2          P2=acc_pattern_value[S_P_i];
+  18   2          S_P_i++;
+  19   2          delay_50us(1);
+  20   2        } else{S_P_i=0;}
+  21   1        
+  22   1      }
+  23          
+  24          void slowing_pattern(void){ 
+  25   1        if(dis_flag_1){dis_flag_1=0;};
+  26   1        if(dis_flag_2){dis_flag_2=0;};
+  27   1        if(dis_flag_3){dis_flag_3=0;};
+  28   1          if(L_P_i<slow_pattern_length){
+  29   2          P0=slow_pattern_value[L_P_i];
+  30   2          P1=slow_pattern_value[L_P_i];
+  31   2          P2=slow_pattern_value[L_P_i];
+  32   2          L_P_i++;
+  33   2          delay_50us(1);
+  34   2        } else{L_P_i=0;}
+  35   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     48    ----
+   CODE SIZE        =    136    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
-   PDATA SIZE       =      9    ----
+   PDATA SIZE       =     28    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----

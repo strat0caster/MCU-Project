@@ -1,8 +1,9 @@
 ".\Objects\STARTUP.obj",
+".\Objects\delay.obj",
 ".\Objects\main.obj",
 ".\Objects\mileage.obj",
-".\Objects\delay.obj",
-".\Objects\turning.obj",
-".\Objects\speeding.obj" 
+".\Objects\slowing.obj",
+".\Objects\speeding.obj",
+".\Objects\turning.obj" 
 TO ".\Objects\BIKE_WHEEL_LIGHT" 
 PRINT(".\Listings\BIKE_WHEEL_LIGHT.m51") RAMSIZE(256) 

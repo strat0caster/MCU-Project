@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   TURNING                                                               01/08/2016 22:25:18 PAGE 1   
+C51 COMPILER V9.54   TURNING                                                               01/09/2016 16:21:14 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE TURNING
@@ -10,70 +10,214 @@ line level    source
 
    1          #include "turning.h"
    2          
-   3          
-   4          void turning_pattern(void){
-   5   1        if(dis_flag_1){dis_flag_1=0;};
-   6   1        if(dis_flag_2){dis_flag_2=0;};
-   7   1        if(dis_flag_3){dis_flag_3=0;};
-   8   1        if(AngleNew>0   && AngleNew<15)   {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
-             -ay_50us(10);P0=0xFF;return;}
-   9   1        if(AngleNew>15  && AngleNew<30)   {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
-             -ay_50us(10);P1=0xFF;return;}
-  10   1        if(AngleNew>30  && AngleNew<45)   {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;de
-             -lay_50us(10);P2=0xFF;return;}
-  11   1        if(AngleNew>45  && AngleNew<60)   {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
-             -ay_50us(10);P0=0xFF;return;}
-  12   1        if(AngleNew>60  && AngleNew>75)   {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
-             -ay_50us(10);P1=0xFF;return;}
-  13   1        if(AngleNew>75  && AngleNew<90)   {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
-             -ay_50us(10);P2=0xFF;return;}
-  14   1        if(AngleNew>90  && AngleNew<105)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
-             -ay_50us(10);P0=0xFF;return;}
-  15   1        if(AngleNew>105 && AngleNew<120)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
-             -ay_50us(10);P1=0xFF;return;}
-  16   1        if(AngleNew>120 && AngleNew<135)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
-             -ay_50us(10);P2=0xFF;return;}
-  17   1        if(AngleNew>135 && AngleNew<150)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
-             -ay_50us(10);P0=0xFF;return;}
-  18   1        if(AngleNew>150 && AngleNew<165)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
-             -ay_50us(10);P1=0xFF;return;}
-  19   1        if(AngleNew>165 && AngleNew<180)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
-             -ay_50us(10);P2=0xFF;return;}
-  20   1        if(AngleNew>180 && AngleNew<195)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
-             -ay_50us(10);P0=0xFF;return;}
-  21   1        if(AngleNew>195 && AngleNew<210)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
-             -ay_50us(10);P1=0xFF;return;}
-  22   1        if(AngleNew>210 && AngleNew<225)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
-             -ay_50us(10);P2=0xFF;return;}
-  23   1        if(AngleNew>225 && AngleNew<240)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
-             -ay_50us(10);P0=0xFF;return;}
-  24   1        if(AngleNew>240 && AngleNew<255)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
-             -ay_50us(10);P1=0xFF;return;}
-  25   1        if(AngleNew>255 && AngleNew<270)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
-             -ay_50us(10);P2=0xFF;return;}
-  26   1        if(AngleNew>270 && AngleNew<285)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
-             -ay_50us(10);P0=0xFF;return;}
-  27   1        if(AngleNew>285 && AngleNew<300)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
-             -ay_50us(10);P1=0xFF;return;}
-  28   1        if(AngleNew>300 && AngleNew<315)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;de
-             -lay_50us(10);P2=0xFF;return;}
-  29   1        if(AngleNew>315 && AngleNew<330)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
-             -ay_50us(10);P0=0xFF;return;}
-  30   1        if(AngleNew>330 && AngleNew<345)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
-             -ay_50us(10);P1=0xFF;return;}
-  31   1        if(AngleNew>345 && AngleNew<360)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
-C51 COMPILER V9.54   TURNING                                                               01/08/2016 22:25:18 PAGE 2   
+   3          void turning_pattern(void){
+   4   1        if(dis_flag_1){dis_flag_1=0;return;};
+   5   1        if(dis_flag_2){dis_flag_2=0;return;};
+   6   1        if(dis_flag_3){dis_flag_3=0;return;};
+   7   1        if(AngleNew>digital_angle[0]   && AngleNew<digital_angle[15])   {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(30);P0
+             -=0xFF;return;}
+   8   1        if(AngleNew>digital_angle[15]  && AngleNew<digital_angle[30])   {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(30);P1
+             -=0xFF;return;}
+   9   1        if(AngleNew>digital_angle[30]  && AngleNew<digital_angle[45])   {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(30);P
+             -2=0xFF;return;}
+  10   1        if(AngleNew>digital_angle[45]  && AngleNew<digital_angle[60])   {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(30);P0
+             -=0xFF;return;}
+  11   1        if(AngleNew>digital_angle[60]  && AngleNew>digital_angle[75])   {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(30);P1
+             -=0xFF;return;}
+  12   1        if(AngleNew>digital_angle[75]  && AngleNew<digital_angle[90])   {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(30);P2
+             -=0xFF;return;}
+  13   1        if(AngleNew>digital_angle[90]  && AngleNew<digital_angle[105])  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(30);P0
+             -=0xFF;return;}
+  14   1        if(AngleNew>digital_angle[105] && AngleNew<digital_angle[120])  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(30);P1
+             -=0xFF;return;}
+  15   1        if(AngleNew>digital_angle[120] && AngleNew<digital_angle[135])  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(30);P2
+             -=0xFF;return;}
+  16   1        if(AngleNew>digital_angle[135] && AngleNew<digital_angle[150])  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(30);P0
+             -=0xFF;return;}
+  17   1        if(AngleNew>digital_angle[150] && AngleNew<digital_angle[165])  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(30);P1
+             -=0xFF;return;}
+  18   1        if(AngleNew>digital_angle[165] && AngleNew<digital_angle[180])  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(30);P2
+             -=0xFF;return;}
+  19   1        if(AngleNew>digital_angle[180] && AngleNew<digital_angle[195])  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(30);P0
+             -=0xFF;return;}
+  20   1        if(AngleNew>digital_angle[195] && AngleNew<digital_angle[210])  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(30);P1
+             -=0xFF;return;}
+  21   1        if(AngleNew>digital_angle[210] && AngleNew<digital_angle[225])  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(30);P2
+             -=0xFF;return;}
+  22   1        if(AngleNew>digital_angle[225] && AngleNew<digital_angle[240])  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(30);P0
+             -=0xFF;return;}
+  23   1        if(AngleNew>digital_angle[240] && AngleNew<digital_angle[255])  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(30);P1
+             -=0xFF;return;}
+  24   1        if(AngleNew>digital_angle[255] && AngleNew<digital_angle[270])  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(30);P2
+             -=0xFF;return;}
+  25   1        if(AngleNew>digital_angle[270] && AngleNew<digital_angle[285])  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(30);P0
+             -=0xFF;return;}
+  26   1        if(AngleNew>digital_angle[285] && AngleNew<digital_angle[300])  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(30);P1
+             -=0xFF;return;}
+  27   1        if(AngleNew>digital_angle[300] && AngleNew<digital_angle[315])  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(30);P
+             -2=0xFF;return;}
+  28   1        if(AngleNew>digital_angle[315] && AngleNew<digital_angle[330])  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(30);P0
+             -=0xFF;return;}
+  29   1        if(AngleNew>digital_angle[330] && AngleNew<digital_angle[345])  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(30);P1
+             -=0xFF;return;}
+  30   1        if(AngleNew>digital_angle[345] && AngleNew<digital_angle[360])  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(30);P2
+             -=0xFF;return;}
+C51 COMPILER V9.54   TURNING                                                               01/09/2016 16:21:14 PAGE 2   
 
+  31   1      }
+  32          //前面清零里程标志是为了体现优先级。
+  33          //想画个感叹号
+  34          //感叹号在车轮上固定位置
+  35          //设置15°间隔是因为：在3r/s的时候10ms大约转过10°。为了保证精度，设置15度间隔。
+  36          
+  37          
+  38          /*
+  39          void turning_pattern(void){
+  40            if(dis_flag_1){dis_flag_1=0;return;};
+  41            if(dis_flag_2){dis_flag_2=0;return;};
+  42            if(dis_flag_3){dis_flag_3=0;return;};
+  43            if(AngleNew>0   && AngleNew<15)   {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
+             -ay_50us(10);P0=0xFF;return;}
+  44            if(AngleNew>15  && AngleNew<30)   {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
+             -ay_50us(10);P1=0xFF;return;}
+  45            if(AngleNew>30  && AngleNew<45)   {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;de
+             -lay_50us(10);P2=0xFF;return;}
+  46            if(AngleNew>45  && AngleNew<60)   {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
+             -ay_50us(10);P0=0xFF;return;}
+  47            if(AngleNew>60  && AngleNew>75)   {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
+             -ay_50us(10);P1=0xFF;return;}
+  48            if(AngleNew>75  && AngleNew<90)   {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
              -ay_50us(10);P2=0xFF;return;}
-  32   1      }
-  33          //前面清零里程标志是为了体现优先级。
-  34          //想画个感叹号
-  35          //感叹号在车轮上固定位置
-  36          //设置15°间隔是因为：在3r/s的时候10ms大约转过10°。为了保证精度，设置15度间隔。
+  49            if(AngleNew>90  && AngleNew<105)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
+             -ay_50us(10);P0=0xFF;return;}
+  50            if(AngleNew>105 && AngleNew<120)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
+             -ay_50us(10);P1=0xFF;return;}
+  51            if(AngleNew>120 && AngleNew<135)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
+             -ay_50us(10);P2=0xFF;return;}
+  52            if(AngleNew>135 && AngleNew<150)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
+             -ay_50us(10);P0=0xFF;return;}
+  53            if(AngleNew>150 && AngleNew<165)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
+             -ay_50us(10);P1=0xFF;return;}
+  54            if(AngleNew>165 && AngleNew<180)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
+             -ay_50us(10);P2=0xFF;return;}
+  55            if(AngleNew>180 && AngleNew<195)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
+             -ay_50us(10);P0=0xFF;return;}
+  56            if(AngleNew>195 && AngleNew<210)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
+             -ay_50us(10);P1=0xFF;return;}
+  57            if(AngleNew>210 && AngleNew<225)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
+             -ay_50us(10);P2=0xFF;return;}
+  58            if(AngleNew>225 && AngleNew<240)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
+             -ay_50us(10);P0=0xFF;return;}
+  59            if(AngleNew>240 && AngleNew<255)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
+             -ay_50us(10);P1=0xFF;return;}
+  60            if(AngleNew>255 && AngleNew<270)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
+             -ay_50us(10);P2=0xFF;return;}
+  61            if(AngleNew>270 && AngleNew<285)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
+             -ay_50us(10);P0=0xFF;return;}
+  62            if(AngleNew>285 && AngleNew<300)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
+             -ay_50us(10);P1=0xFF;return;}
+  63            if(AngleNew>300 && AngleNew<315)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;de
+             -lay_50us(10);P2=0xFF;return;}
+  64            if(AngleNew>315 && AngleNew<330)  {P1=0xFF;P2=0xFF;P0=0xF9;delay_50us(10);P0=0x20;delay_1ms(1);P0=0xF9;del
+             -ay_50us(10);P0=0xFF;return;}
+  65            if(AngleNew>330 && AngleNew<345)  {P0=0xFF;P2=0xFF;P1=0xF9;delay_50us(10);P1=0x20;delay_1ms(1);P1=0xF9;del
+             -ay_50us(10);P1=0xFF;return;}
+  66            if(AngleNew>345 && AngleNew<360)  {P0=0xFF;P1=0xFF;P2=0xF9;delay_50us(10);P2=0x20;delay_1ms(1);P2=0xF9;del
+             -ay_50us(10);P2=0xFF;return;}
+  67          }
+  68          */
+C51 COMPILER V9.54   TURNING                                                               01/09/2016 16:21:14 PAGE 3   
+
+  69          
+  70          
+  71          /*
+  72          void turning_pattern(void){
+  73            if(dis_flag_1){dis_flag_1=0;return;};
+  74            if(dis_flag_2){dis_flag_2=0;return;};
+  75            if(dis_flag_3){dis_flag_3=0;return;};
+  76            
+  77          if(AngleNew>0 && AngleNew<5)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+  78          if(AngleNew>5 && AngleNew<10)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+  79          if(AngleNew>10 && AngleNew<15)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+  80          if(AngleNew>15 && AngleNew<20)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+  81          if(AngleNew>20 && AngleNew<25)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+  82          if(AngleNew>25 && AngleNew<30)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+  83          if(AngleNew>30 && AngleNew<35)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+  84          if(AngleNew>35 && AngleNew<40)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+  85          if(AngleNew>40 && AngleNew<45)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+  86          if(AngleNew>45 && AngleNew<50)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+  87          if(AngleNew>50 && AngleNew<55)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+  88          if(AngleNew>55 && AngleNew<60)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+  89          if(AngleNew>60 && AngleNew<65)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+  90          if(AngleNew>65 && AngleNew<70)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+  91          if(AngleNew>70 && AngleNew<75)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+  92          if(AngleNew>75 && AngleNew<80)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+  93          if(AngleNew>80 && AngleNew<85)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+  94          if(AngleNew>85 && AngleNew<90)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+  95          if(AngleNew>90 && AngleNew<95)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+  96          if(AngleNew>95 && AngleNew<100)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+  97          if(AngleNew>100 && AngleNew<105)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+  98          if(AngleNew>105 && AngleNew<110)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+  99          if(AngleNew>110 && AngleNew<115)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+ 100          if(AngleNew>115 && AngleNew<120)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+ 101          if(AngleNew>120 && AngleNew<125)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+ 102          if(AngleNew>125 && AngleNew<130)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+ 103          if(AngleNew>130 && AngleNew<135)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+ 104          if(AngleNew>135 && AngleNew<140)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+ 105          if(AngleNew>140 && AngleNew<145)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+ 106          if(AngleNew>145 && AngleNew<150)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+ 107          if(AngleNew>150 && AngleNew<155)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+ 108          if(AngleNew>155 && AngleNew<160)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+ 109          if(AngleNew>160 && AngleNew<165)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+ 110          if(AngleNew>165 && AngleNew<170)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+ 111          if(AngleNew>170 && AngleNew<175)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+ 112          if(AngleNew>175 && AngleNew<180)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+ 113          if(AngleNew>180 && AngleNew<185)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+ 114          if(AngleNew>185 && AngleNew<190)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+ 115          if(AngleNew>190 && AngleNew<195)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+ 116          if(AngleNew>195 && AngleNew<200)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+ 117          if(AngleNew>200 && AngleNew<205)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+ 118          if(AngleNew>205 && AngleNew<210)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+ 119          if(AngleNew>210 && AngleNew<215)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+ 120          if(AngleNew>215 && AngleNew<220)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+ 121          if(AngleNew>220 && AngleNew<225)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+ 122          if(AngleNew>225 && AngleNew<230)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+ 123          if(AngleNew>230 && AngleNew<235)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+ 124          if(AngleNew>235 && AngleNew<240)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+ 125          if(AngleNew>240 && AngleNew<245)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+ 126          if(AngleNew>245 && AngleNew<250)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+ 127          if(AngleNew>250 && AngleNew<255)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+ 128          if(AngleNew>255 && AngleNew<260)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+ 129          if(AngleNew>260 && AngleNew<265)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+ 130          if(AngleNew>265 && AngleNew<270)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+C51 COMPILER V9.54   TURNING                                                               01/09/2016 16:21:14 PAGE 4   
+
+ 131          if(AngleNew>270 && AngleNew<275)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+ 132          if(AngleNew>275 && AngleNew<280)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+ 133          if(AngleNew>280 && AngleNew<285)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+ 134          if(AngleNew>285 && AngleNew<290)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+ 135          if(AngleNew>290 && AngleNew<295)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+ 136          if(AngleNew>295 && AngleNew<300)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+ 137          if(AngleNew>300 && AngleNew<305)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+ 138          if(AngleNew>305 && AngleNew<310)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+ 139          if(AngleNew>310 && AngleNew<315)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+ 140          if(AngleNew>315 && AngleNew<320)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+ 141          if(AngleNew>320 && AngleNew<325)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+ 142          if(AngleNew>325 && AngleNew<330)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+ 143          if(AngleNew>330 && AngleNew<335)  {P0=0xF9; P1=0xFF; P2=0xFF;return;}
+ 144          if(AngleNew>335 && AngleNew<340)  {P0=0x40; P1=0xFF; P2=0xFF;return;}
+ 145          if(AngleNew>340 && AngleNew<345)  {P0=0xF9; P1=0xF9; P2=0xFF;return;}
+ 146          if(AngleNew>345 && AngleNew<350)  {P0=0xFF; P1=0x40; P2=0xF9;return;}
+ 147          if(AngleNew>350 && AngleNew<355)  {P0=0xFF; P1=0xF9; P2=0x40;return;}
+ 148          if(AngleNew>355 && AngleNew<360)  {P0=0xFF; P1=0xFF; P2=0xF9;return;}
+ 149            
+ 150          }//试试用角度判断的方法
+ 151          
+ 152          */
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1500    ----
+   CODE SIZE        =   1366    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
