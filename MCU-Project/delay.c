@@ -1,4 +1,12 @@
 #include "delay.h"
+
+void delay_50us(int times){
+  unsigned char a;
+  for(;times>0;times--){
+			for(a=10;a>0;a--);
+	}		
+}
+
 void delay_1ms(int times){
 	unsigned char a,b;
 	for(;times>0;times--){

@@ -1,4 +1,4 @@
-C51 COMPILER V9.00   O                                                                     01/10/2016 01:26:45 PAGE 1   
+C51 COMPILER V9.00   O                                                                     01/10/2016 21:40:16 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE O
@@ -12,7 +12,7 @@ line level    source
    3          #include <math.h>
    4          #define length 12
    5          
-   6          //ÂÆûÁé∞ÂçäÂúÜÂë®ÂÆö‰πâÁ®≥ÂÆöÂõæÊ°àËæìÂá∫
+   6          // µœ÷∞Î‘≤÷‹∂®“ÂŒ»∂®Õº∞∏ ‰≥ˆ
    7          
    8          sfr AUXR=0x8E;
    9          sfr T2CON=0xC8;
@@ -32,136 +32,179 @@ line level    source
   23          float w_turning=0;
   24          int k=0;
   25          void turning_pattern1(void);
-  26          
-  27          void delay_1ms(int times){
-  28   1              unsigned char a,b;
-  29   1              for(;times>0;times--){
-  30   2                      for(b=13;b>0;b--){
-  31   3                              for(a=33;a>0;a--);
-  32   3                      }
-  33   2              }
-  34   1      }
-  35          
-  36          void main(void) {
-  37   1              void UartInit();
-  38   1              unsigned char O_Value[length]={0xff,0xff,0Xff,0xc3,0xbd,0x7e,0x7e,0xbd,0xc3,0xff,0xff,0xff};
-  39   1              int S_P_i=0;
-  40   1              UartInit();                                                                                                                                                                                             
-  41   1              while(1){
-  42   2      
-  43   2                      if(AngleNew>30&&AngleNew<90){
-  44   3                              if(S_P_i<length){
-  45   4                              P0=O_Value[S_P_i];
-  46   4                              S_P_i++;
-  47   4                              delay_1ms(5);
-  48   4                              }       
-  49   3                              else{
-  50   4                                      S_P_i=0;
-  51   4                              }
-  52   3      
-  53   3                      }
-  54   2                      else{P0=0xff;}
-  55   2              }
-C51 COMPILER V9.00   O                                                                     01/10/2016 01:26:45 PAGE 2   
+  26          int temp;
+  27          void delay_50us(int times){
+  28   1        unsigned char a;
+  29   1        for(;times>0;times--){
+  30   2                              for(a=10;a>0;a--);
+  31   2              }               
+  32   1      }
+  33          void delay_1ms(int times){
+  34   1              unsigned char a,b;
+  35   1              for(;times>0;times--){
+  36   2                      for(b=13;b>0;b--){
+  37   3                              for(a=33;a>0;a--);
+  38   3                      }
+  39   2              }
+  40   1      }
+  41          
+  42          
+  43          void main(void) {
+  44   1              void UartInit();
+  45   1              unsigned char code O_Value[length]={0xc3,0xbd,0xbd,0xbd,0xc3,0xff,0xff,0xff,0xff,0xff,0xff,0Xff};
+  46   1              unsigned char code T_Value[length]={0xfc,0x7e,0x00,0x7e,0xfc,0xff,0xff,0xff,0xff,0xff,0xff,0Xff};
+  47   1              unsigned char code P_Value[length]={0xf1,0xee,0xee,0x6e,0x00,0x7e,0xff,0xff,0xff,0xff,0xff,0Xff};
+  48   1              unsigned char code OPT_Value[36]={0xc3,0xbd,0xbd,0xbd,0xc3,0xff,0xff,0xff,0xff,0Xff,0xff,0xff,0xf1,0xee,0
+             -xee,0x6e,0x00,0x7e,0xff,0xff,0xff,0xff,0xff,0Xff,0xfc,0x7e,0x00,0x7e,0xfc,0xff,0xff,0xff,0xff,0xff,0xff,0Xff};
+  49   1              int S_P_1=0,S_P_2=0,S_P_3=0;
+  50   1      
+  51   1              UartInit();                                                                                                                                                                                             
+  52   1              while(1){
+  53   2      
+  54   2                      if(AngleNew>0&&AngleNew<120){
+C51 COMPILER V9.00   O                                                                     01/10/2016 21:40:16 PAGE 2   
 
-  56   1      }
-  57          
-  58          
-  59          
-  60          
-  61          void UartInit(void)             //115200bps@11.0592MHz
-  62          {
-  63   1              EA=1;
-  64   1              ES=1;
-  65   1      
-  66   1              SCON = 0x50;            //8???,?????
-  67   1              RCAP2L = 0xFD;
-  68   1              RCAP2H = 0xFF;
-  69   1              TL2 = 0xFD;             //??????
-  70   1              TH2 = 0xFF;             //??????
-  71   1              T2CON=0x34;
-  72   1      }
-  73          
-  74          void ser() interrupt 4
-  75          {
-  76   1              if(RI)
-  77   1              {
-  78   2                      RI=0;   
-  79   2                      Receive_Buff[counter]=SBUF;     
-  80   2                      
-  81   2                if(counter==0&&Receive_Buff[0]!=0x55) return;      //Á¨¨0Âè∑Êï∞ÊçÆ‰∏çÊòØÂ∏ßÂ§¥
-  82   2                counter++;
-  83   2                      
-  84   2                if(counter==11)             //Êé•Êî∂Âà∞11‰∏™Êï∞ÊçÆ
-  85   2                  {
-  86   3                     counter=0;               //ÈáçÊñ∞ËµãÂÄºÔºåÂáÜÂ§á‰∏ã‰∏ÄÂ∏ßÊï∞ÊçÆÁöÑÊé•Êî∂        
-  87   3      
-  88   3                              switch(Receive_Buff [1])
-  89   3                              {
-  90   4                              case 0x51:
-  91   4                              a[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
-  92   4      //                      a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
-  93   4                              // AngleNew=asin(a[0]/2048.0)*57.3;
-  94   4                              a1=a2;
-  95   4                              a2=a3;
-  96   4                              a3=a[0];
-  97   4                              if(a1>=a2&&a2<=a3){//Âõ∫ÂÆöÁÇπÂà§Êñ≠
-  98   5                                      
-  99   5                              Flag=0;
- 100   5                              }
- 101   4                              if(a1<=a2&&a2>=a3){
- 102   5                                      Flag=1;
- 103   5                                      if(w[1]>6553){
- 104   6                                              Dist++;
- 105   6                                      }
- 106   5                              }
- 107   4                                      if(Flag==1){
- 108   5                                              AngleNew=asin(a[0]/2048.0)*57.3+90;//Âà©Áî®xËΩ¥Âä†ÈÄüÂ∫¶ÊñπÂêëÂà§Êñ≠Êñπ‰ΩçËßí                                                   
- 109   5                                              }
- 110   4                                      else {
- 111   5                                              AngleNew=270-asin(a[0]/2048.0)*57.3;
- 112   5                                                }
- 113   4      //                      a[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*16;
- 114   4                              break;
- 115   4                              case 0x52:
- 116   4      
- 117   4                              w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
-C51 COMPILER V9.00   O                                                                     01/10/2016 01:26:45 PAGE 3   
+  55   3                              S_P_2=0;
+  56   3                              S_P_3=0;
+  57   3                              if(S_P_1<length){
+  58   4                              P0=O_Value[S_P_1];
+  59   4                              //P1=P_Value[S_P_1];
+  60   4                              //P2=T_Value[S_P_1];
+  61   4                              S_P_1++;
+  62   4                              delay_50us(5);
+  63   4                              }
+  64   3      
+  65   3      
+  66   3                      }
+  67   2                      else if(AngleNew>120&&AngleNew<240) 
+  68   2                      {
+  69   3                                      S_P_1=0;
+  70   3                                      S_P_3=0;
+  71   3                              if(S_P_2<length){
+  72   4                                      P1=O_Value[S_P_2];
+  73   4                                      P2=P_Value[S_P_2];
+  74   4                                      P0=T_Value[S_P_2];
+  75   4                                      S_P_2++;
+  76   4                              delay_50us(5);
+  77   4                              }
+  78   3      
+  79   3                      }
+  80   2                      else if(AngleNew>225&&AngleNew<345){
+  81   3                              S_P_1=0;
+  82   3                              S_P_2=0;
+  83   3                              if(S_P_3<length){
+  84   4                                      P2=O_Value[S_P_3];
+  85   4                                      P1=T_Value[S_P_3];
+  86   4                                      P0=P_Value[S_P_3];
+  87   4                                      S_P_3++;
+  88   4                                      delay_50us(5);
+  89   4                              }
+  90   3                      }
+  91   2                      else{
+  92   3                      P0=0xff;
+  93   3                      P1=0xff;
+  94   3                      P2=0xff;
+  95   3                      }
+  96   2              }
+  97   1      }
+*** WARNING C280 IN LINE 48 OF O.C: 'OPT_Value': unreferenced local variable
+  98          
+  99          
+ 100          void UartInit(void)             //115200bps@11.0592MHz
+ 101          {
+ 102   1              EA=1;
+ 103   1              ES=1;
+ 104   1      
+ 105   1              SCON = 0x50;            //8???,?????
+ 106   1              RCAP2L = 0xFD;
+ 107   1              RCAP2H = 0xFF;
+ 108   1              TL2 = 0xFD;             //??????
+ 109   1              TH2 = 0xFF;             //??????
+ 110   1              T2CON=0x34;
+ 111   1      }
+ 112          
+ 113          void ser() interrupt 4
+ 114          {
+ 115   1              if(RI)
+C51 COMPILER V9.00   O                                                                     01/10/2016 21:40:16 PAGE 3   
 
- 118   4                              w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
- 119   4                              w[2]=(Receive_Buff[7]<<8|Receive_Buff[6]);
- 120   4      
- 121   4                              // if(w[1]>1000)
- 122   4                              // AngleNew+=w[1]/100;
- 123   4      
- 124   4      //                      w[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*2000;
- 125   4                              break;
- 126   4                              case 0x53: 
- 127   4      //                      Angle[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
- 128   4      //                      Angle[1]=(Receive_Buff[5]<<8|Receive_Buff[4])/32768.0*180;
- 129   4      //                      Angle[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*180;
- 130   4                              break;
- 131   4                              default: break;
- 132   4                              } 
- 133   3                    }
- 134   2      
- 135   2                }
- 136   1              
- 137   1                      if(TI){
- 138   2                              TI=0;
- 139   2                      }
- 140   1      }
+ 116   1              {
+ 117   2                      RI=0;   
+ 118   2                      Receive_Buff[counter]=SBUF;     
+ 119   2                      
+ 120   2                if(counter==0&&Receive_Buff[0]!=0x55) return;      //µ⁄0∫≈ ˝æ›≤ª «÷°Õ∑
+ 121   2                counter++;
+ 122   2                      
+ 123   2                if(counter==11)             //Ω” ’µΩ11∏ˆ ˝æ›
+ 124   2                  {
+ 125   3                     counter=0;               //÷ÿ–¬∏≥÷µ£¨◊º±∏œ¬“ª÷° ˝æ›µƒΩ” ’        
+ 126   3      
+ 127   3                              switch(Receive_Buff [1])
+ 128   3                              {
+ 129   4                              case 0x51:
+ 130   4                              a[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+ 131   4      //                      a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+ 132   4                              // AngleNew=asin(a[0]/2048.0)*57.3;
+ 133   4                              a1=a2;
+ 134   4                              a2=a3;
+ 135   4                              a3=a[0];
+ 136   4                              if(a1>=a2&&a2<=a3){//πÃ∂®µ„≈–∂œ
+ 137   5      
+ 138   5                              Flag=0;
+ 139   5                              }
+ 140   4                              if(a1<=a2&&a2>=a3){
+ 141   5                                      Flag=1;
+ 142   5                                      if(w[1]>6553){
+ 143   6                                              Dist++;
+ 144   6                                      }
+ 145   5                              }
+ 146   4                                      if(Flag==1){
+ 147   5                                              AngleNew=asin(a[0]/2048.0)*57.3+90;//¿˚”√x÷·º”ÀŸ∂»∑ΩœÚ≈–∂œ∑ΩŒªΩ«                                                        
+ 148   5                                              }
+ 149   4                                      else {
+ 150   5                                              AngleNew=270-asin(a[0]/2048.0)*57.3;
+ 151   5                                                }
+ 152   4      //                      a[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*16;
+ 153   4                              break;
+ 154   4                              case 0x52:
+ 155   4      
+ 156   4                              w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+ 157   4                              w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+ 158   4                              w[2]=(Receive_Buff[7]<<8|Receive_Buff[6]);
+ 159   4      
+ 160   4                              // if(w[1]>1000)
+ 161   4                              // AngleNew+=w[1]/100;
+ 162   4      
+ 163   4      //                      w[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*2000;
+ 164   4                              break;
+ 165   4                              case 0x53: 
+ 166   4      //                      Angle[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+ 167   4      //                      Angle[1]=(Receive_Buff[5]<<8|Receive_Buff[4])/32768.0*180;
+ 168   4      //                      Angle[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*180;
+ 169   4                              break;
+ 170   4                              default: break;
+ 171   4                              } 
+ 172   3                    }
+ 173   2      
+ 174   2                }
+ 175   1              
+ 176   1                      if(TI){
+ 177   2                              TI=0;
+C51 COMPILER V9.00   O                                                                     01/10/2016 21:40:16 PAGE 4   
+
+ 178   2                      }
+ 179   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    553    ----
-   CONSTANT SIZE    =     12    ----
+   CODE SIZE        =    833    ----
+   CONSTANT SIZE    =     72    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     62      14
+   DATA SIZE        =     64       6
    IDATA SIZE       =   ----    ----
    BIT SIZE         =      1    ----
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

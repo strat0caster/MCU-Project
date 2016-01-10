@@ -196,10 +196,10 @@
       <FileType>1</FileType>
       <tvExp>1</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>5</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>6</TopLine>
-      <CurrentLine>6</CurrentLine>
+      <TopLine>75</TopLine>
+      <CurrentLine>75</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\O.c</PathWithFileName>
       <FilenameWithoutPath>O.c</FilenameWithoutPath>
@@ -1577,9 +1577,9 @@
       <Documents>
         <Doc>
           <Name>.\O.c</Name>
-          <ColumnNumber>5</ColumnNumber>
-          <TopLine>6</TopLine>
-          <CurrentLine>6</CurrentLine>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>75</TopLine>
+          <CurrentLine>75</CurrentLine>
         </Doc>
         <Doc>
           <Name>C:\Users\Sam Song\Desktop\优生免考\MCU-Project\FrontBackTest\OPTZJU.M51</Name>

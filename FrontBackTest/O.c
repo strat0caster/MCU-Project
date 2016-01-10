@@ -3,7 +3,7 @@
 #include <math.h>
 #define length 12
 
-//å®ç°åŠåœ†å‘¨å®šä¹‰ç¨³å®šå›¾æ¡ˆè¾“å‡º
+//ÊµÏÖ°ëÔ²ÖÜ¶¨ÒåÎÈ¶¨Í¼°¸Êä³ö
 
 sfr AUXR=0x8E;
 sfr T2CON=0xC8;
@@ -23,7 +23,13 @@ bit Flag=0;
 float w_turning=0;
 int k=0;
 void turning_pattern1(void);
-
+int temp;
+void delay_50us(int times){
+  unsigned char a;
+  for(;times>0;times--){
+			for(a=10;a>0;a--);
+	}		
+}
 void delay_1ms(int times){
 	unsigned char a,b;
 	for(;times>0;times--){
@@ -33,29 +39,62 @@ void delay_1ms(int times){
 	}
 }
 
+
 void main(void) {
 	void UartInit();
-	unsigned char O_Value[length]={0xff,0xff,0Xff,0xc3,0xbd,0x7e,0x7e,0xbd,0xc3,0xff,0xff,0xff};
-	int S_P_i=0;
+	unsigned char code O_Value[length]={0xc3,0xbd,0xbd,0xbd,0xc3,0xff,0xff,0xff,0xff,0xff,0xff,0Xff};
+	unsigned char code T_Value[length]={0xfc,0x7e,0x00,0x7e,0xfc,0xff,0xff,0xff,0xff,0xff,0xff,0Xff};
+	unsigned char code P_Value[length]={0xf1,0xee,0xee,0x6e,0x00,0x7e,0xff,0xff,0xff,0xff,0xff,0Xff};
+	unsigned char code OPT_Value[36]={0xc3,0xbd,0xbd,0xbd,0xc3,0xff,0xff,0xff,0xff,0Xff,0xff,0xff,0xf1,0xee,0xee,0x6e,0x00,0x7e,0xff,0xff,0xff,0xff,0xff,0Xff,0xfc,0x7e,0x00,0x7e,0xfc,0xff,0xff,0xff,0xff,0xff,0xff,0Xff};
+	int S_P_1=0,S_P_2=0,S_P_3=0;
+
 	UartInit();																							 	
 	while(1){
 
-		if(AngleNew>30&&AngleNew<90){
-			if(S_P_i<length){
-			P0=O_Value[S_P_i];
-			S_P_i++;
-			delay_1ms(5);
-			}	
-			else{
-				S_P_i=0;
+		if(AngleNew>0&&AngleNew<120){
+			S_P_2=0;
+			S_P_3=0;
+			if(S_P_1<length){
+			P0=O_Value[S_P_1];
+			//P1=P_Value[S_P_1];
+			//P2=T_Value[S_P_1];
+			S_P_1++;
+			delay_50us(5);
+			}
+
+
+		}
+		else if(AngleNew>120&&AngleNew<240) 
+		{
+				S_P_1=0;
+				S_P_3=0;
+			if(S_P_2<length){
+				P1=O_Value[S_P_2];
+				P2=P_Value[S_P_2];
+				P0=T_Value[S_P_2];
+				S_P_2++;
+			delay_50us(5);
 			}
 
 		}
-		else{P0=0xff;}
+		else if(AngleNew>225&&AngleNew<345){
+			S_P_1=0;
+			S_P_2=0;
+			if(S_P_3<length){
+				P2=O_Value[S_P_3];
+				P1=T_Value[S_P_3];
+				P0=P_Value[S_P_3];
+				S_P_3++;
+				delay_50us(5);
+			}
+		}
+		else{
+		P0=0xff;
+		P1=0xff;
+		P2=0xff;
+		}
 	}
 }
-
-
 
 
 void UartInit(void)		//115200bps@11.0592MHz
@@ -78,12 +117,12 @@ void ser() interrupt 4
 		RI=0;	
 		Receive_Buff[counter]=SBUF;	
 		
-	  if(counter==0&&Receive_Buff[0]!=0x55) return;      //ç¬¬0å·æ•°æ®ä¸æ˜¯å¸§å¤´
+	  if(counter==0&&Receive_Buff[0]!=0x55) return;      //µÚ0ºÅÊı¾İ²»ÊÇÖ¡Í·
 	  counter++;
 		
-	  if(counter==11)             //æ¥æ”¶åˆ°11ä¸ªæ•°æ®
+	  if(counter==11)             //½ÓÊÕµ½11¸öÊı¾İ
 	    {
-	       counter=0;               //é‡æ–°èµ‹å€¼ï¼Œå‡†å¤‡ä¸‹ä¸€å¸§æ•°æ®çš„æ¥æ”¶        
+	       counter=0;               //ÖØĞÂ¸³Öµ£¬×¼±¸ÏÂÒ»Ö¡Êı¾İµÄ½ÓÊÕ        
 
 			switch(Receive_Buff [1])
 			{
@@ -94,8 +133,8 @@ void ser() interrupt 4
 			a1=a2;
 			a2=a3;
 			a3=a[0];
-			if(a1>=a2&&a2<=a3){//å›ºå®šç‚¹åˆ¤æ–­
-				
+			if(a1>=a2&&a2<=a3){//¹Ì¶¨µãÅĞ¶Ï
+
 			Flag=0;
 			}
 			if(a1<=a2&&a2>=a3){
@@ -105,7 +144,7 @@ void ser() interrupt 4
 				}
 			}
 				if(Flag==1){
-					AngleNew=asin(a[0]/2048.0)*57.3+90;//åˆ©ç”¨xè½´åŠ é€Ÿåº¦æ–¹å‘åˆ¤æ–­æ–¹ä½è§’							
+					AngleNew=asin(a[0]/2048.0)*57.3+90;//ÀûÓÃxÖá¼ÓËÙ¶È·½ÏòÅĞ¶Ï·½Î»½Ç							
 					}
 				else {
 					AngleNew=270-asin(a[0]/2048.0)*57.3;
