@@ -1,0 +1,93 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Sam Song\Desktop\”≈…˙√‚øº\MCU-Project\FrontBackTest\OPTZJU.uvproj
+Project File Date:  <unknown>
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?C_START
+    MODULE:  STARTUP.obj (?C_STARTUP)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?C_START
+    MODULE:  STARTUP.obj (?C_STARTUP)
+    ADDRESS: 000DH
+Program Size: data=9.0 xdata=0 code=15
+"OPTZJU" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?C_START
+    MODULE:  STARTUP.obj (?C_STARTUP)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?C_START
+    MODULE:  STARTUP.obj (?C_STARTUP)
+    ADDRESS: 000DH
+Program Size: data=9.0 xdata=0 code=15
+"OPTZJU" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling O.c...
+O.C(37): error C202: 'length': undefined identifier
+O.C(37): error C136: invalid dimension size: [0]
+O.C(43): error C202: 'acc_pattern_length': undefined identifier
+O.C(108): error C141: syntax error near 'else'
+O.C(138): error C141: syntax error near ''
+Target not created
+Build target 'Target 1'
+compiling O.c...
+O.C(44): error C202: 'acc_pattern_length': undefined identifier
+O.C(109): error C141: syntax error near 'else'
+O.C(139): error C141: syntax error near ''
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling O.c...
+O.C(44): error C202: 'acc_pattern_length': undefined identifier
+O.C(109): error C141: syntax error near 'else'
+O.C(139): error C141: syntax error near ''
+Target not created
+Build target 'Target 1'
+compiling O.c...
+O.C(109): error C141: syntax error near 'else'
+O.C(139): error C141: syntax error near ''
+Target not created
+Build target 'Target 1'
+compiling O.c...
+linking...
+Program Size: data=89.3 xdata=0 code=2565
+"OPTZJU" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+linking...
+Program Size: data=89.3 xdata=0 code=2565
+"OPTZJU" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+linking...
+Program Size: data=89.3 xdata=0 code=2565
+"OPTZJU" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling O.c...
+linking...
+Program Size: data=89.3 xdata=0 code=2565
+"OPTZJU" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+linking...
+Program Size: data=89.3 xdata=0 code=2565
+"OPTZJU" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling O.c...
+linking...
+Program Size: data=89.3 xdata=0 code=2565
+creating hex file from "OPTZJU"...
+"OPTZJU" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+linking...
+Program Size: data=89.3 xdata=0 code=2565
+creating hex file from "OPTZJU"...
+"OPTZJU" - 0 Error(s), 0 Warning(s).

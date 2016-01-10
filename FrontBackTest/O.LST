@@ -1,0 +1,167 @@
+C51 COMPILER V9.00   O                                                                     01/10/2016 01:26:45 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE O
+OBJECT MODULE PLACED IN O.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE O.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1           #include <reg51.h>
+   2          #include <intrins.h>
+   3          #include <math.h>
+   4          #define length 12
+   5          
+   6          //实现半圆周定义稳定图案输出
+   7          
+   8          sfr AUXR=0x8E;
+   9          sfr T2CON=0xC8;
+  10          sfr RCAP2L=0xCA;
+  11          sfr RCAP2H=0xCB;
+  12          sfr TL2=0xCC;
+  13          sfr TH2=0xCD;
+  14          
+  15          int a[3],w[3],Angle[3]; 
+  16          int Receive_Buff[11];
+  17          unsigned char counter=0,test=0;
+  18          int a1=0,a2=0,a3=0;
+  19          int timer=0;
+  20          extern int Dist=0;
+  21          extern double AngleNew=0;
+  22          bit Flag=0;
+  23          float w_turning=0;
+  24          int k=0;
+  25          void turning_pattern1(void);
+  26          
+  27          void delay_1ms(int times){
+  28   1              unsigned char a,b;
+  29   1              for(;times>0;times--){
+  30   2                      for(b=13;b>0;b--){
+  31   3                              for(a=33;a>0;a--);
+  32   3                      }
+  33   2              }
+  34   1      }
+  35          
+  36          void main(void) {
+  37   1              void UartInit();
+  38   1              unsigned char O_Value[length]={0xff,0xff,0Xff,0xc3,0xbd,0x7e,0x7e,0xbd,0xc3,0xff,0xff,0xff};
+  39   1              int S_P_i=0;
+  40   1              UartInit();                                                                                                                                                                                             
+  41   1              while(1){
+  42   2      
+  43   2                      if(AngleNew>30&&AngleNew<90){
+  44   3                              if(S_P_i<length){
+  45   4                              P0=O_Value[S_P_i];
+  46   4                              S_P_i++;
+  47   4                              delay_1ms(5);
+  48   4                              }       
+  49   3                              else{
+  50   4                                      S_P_i=0;
+  51   4                              }
+  52   3      
+  53   3                      }
+  54   2                      else{P0=0xff;}
+  55   2              }
+C51 COMPILER V9.00   O                                                                     01/10/2016 01:26:45 PAGE 2   
+
+  56   1      }
+  57          
+  58          
+  59          
+  60          
+  61          void UartInit(void)             //115200bps@11.0592MHz
+  62          {
+  63   1              EA=1;
+  64   1              ES=1;
+  65   1      
+  66   1              SCON = 0x50;            //8???,?????
+  67   1              RCAP2L = 0xFD;
+  68   1              RCAP2H = 0xFF;
+  69   1              TL2 = 0xFD;             //??????
+  70   1              TH2 = 0xFF;             //??????
+  71   1              T2CON=0x34;
+  72   1      }
+  73          
+  74          void ser() interrupt 4
+  75          {
+  76   1              if(RI)
+  77   1              {
+  78   2                      RI=0;   
+  79   2                      Receive_Buff[counter]=SBUF;     
+  80   2                      
+  81   2                if(counter==0&&Receive_Buff[0]!=0x55) return;      //第0号数据不是帧头
+  82   2                counter++;
+  83   2                      
+  84   2                if(counter==11)             //接收到11个数据
+  85   2                  {
+  86   3                     counter=0;               //重新赋值，准备下一帧数据的接收        
+  87   3      
+  88   3                              switch(Receive_Buff [1])
+  89   3                              {
+  90   4                              case 0x51:
+  91   4                              a[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+  92   4      //                      a[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+  93   4                              // AngleNew=asin(a[0]/2048.0)*57.3;
+  94   4                              a1=a2;
+  95   4                              a2=a3;
+  96   4                              a3=a[0];
+  97   4                              if(a1>=a2&&a2<=a3){//固定点判断
+  98   5                                      
+  99   5                              Flag=0;
+ 100   5                              }
+ 101   4                              if(a1<=a2&&a2>=a3){
+ 102   5                                      Flag=1;
+ 103   5                                      if(w[1]>6553){
+ 104   6                                              Dist++;
+ 105   6                                      }
+ 106   5                              }
+ 107   4                                      if(Flag==1){
+ 108   5                                              AngleNew=asin(a[0]/2048.0)*57.3+90;//利用x轴加速度方向判断方位角                                                   
+ 109   5                                              }
+ 110   4                                      else {
+ 111   5                                              AngleNew=270-asin(a[0]/2048.0)*57.3;
+ 112   5                                                }
+ 113   4      //                      a[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*16;
+ 114   4                              break;
+ 115   4                              case 0x52:
+ 116   4      
+ 117   4                              w[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+C51 COMPILER V9.00   O                                                                     01/10/2016 01:26:45 PAGE 3   
+
+ 118   4                              w[1]=(Receive_Buff[5]<<8|Receive_Buff[4]);
+ 119   4                              w[2]=(Receive_Buff[7]<<8|Receive_Buff[6]);
+ 120   4      
+ 121   4                              // if(w[1]>1000)
+ 122   4                              // AngleNew+=w[1]/100;
+ 123   4      
+ 124   4      //                      w[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*2000;
+ 125   4                              break;
+ 126   4                              case 0x53: 
+ 127   4      //                      Angle[0]=(Receive_Buff[3]<<8|Receive_Buff[2]);
+ 128   4      //                      Angle[1]=(Receive_Buff[5]<<8|Receive_Buff[4])/32768.0*180;
+ 129   4      //                      Angle[2]=(Receive_Buff[7]<<8|Receive_Buff[6])/32768.0*180;
+ 130   4                              break;
+ 131   4                              default: break;
+ 132   4                              } 
+ 133   3                    }
+ 134   2      
+ 135   2                }
+ 136   1              
+ 137   1                      if(TI){
+ 138   2                              TI=0;
+ 139   2                      }
+ 140   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    553    ----
+   CONSTANT SIZE    =     12    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     62      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
