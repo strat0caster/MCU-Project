@@ -1,4 +1,4 @@
- #include <reg51.h>
+#include <reg51.h>
 #include <intrins.h>
 #include <math.h>
 #define length 12
@@ -53,7 +53,6 @@ void main(void) {
 
 		if(AngleNew>0&&AngleNew<120){
 			S_P_2=0;
-			S_P_3=0;
 			if(S_P_1<length){
 			P0=O_Value[S_P_1];
 			//P1=P_Value[S_P_1];
@@ -73,7 +72,7 @@ void main(void) {
 				S_P_2++;
 			delay_50us(5);
 			}
-
+ 
 		}
 		else if(AngleNew>225&&AngleNew<345){
 			S_P_1=0;

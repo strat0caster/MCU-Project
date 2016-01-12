@@ -3,7 +3,7 @@
 #include <math.h>
 #define length 12
 
-//ʵ�ְ�Բ�ܶ����ȶ�ͼ�����
+//ÊµÏÖ°ëÔ²ÖÜ¶¨ÒåÎÈ¶¨Í¼°¸Êä³ö
 
 sfr AUXR=0x8E;
 sfr T2CON=0xC8;
@@ -110,6 +110,7 @@ void UartInit(void)		//115200bps@11.0592MHz
 	T2CON=0x34;
 }
 
+
 void ser() interrupt 4
 {
 	if(RI)
@@ -117,12 +118,12 @@ void ser() interrupt 4
 		RI=0;	
 		Receive_Buff[counter]=SBUF;	
 		
-	  if(counter==0&&Receive_Buff[0]!=0x55) return;      //��0�����ݲ���֡ͷ
+	  if(counter==0&&Receive_Buff[0]!=0x55) return;      //µÚ0ºÅÊý¾Ý²»ÊÇÖ¡Í·
 	  counter++;
 		
-	  if(counter==11)             //���յ�11������
+	  if(counter==11)             //½ÓÊÕµ½11¸öÊý¾Ý
 	    {
-	       counter=0;               //���¸�ֵ��׼����һ֡���ݵĽ���        
+	       counter=0;               //ÖØÐÂ¸³Öµ£¬×¼±¸ÏÂÒ»Ö¡Êý¾ÝµÄ½ÓÊÕ        
 
 			switch(Receive_Buff [1])
 			{
@@ -133,7 +134,7 @@ void ser() interrupt 4
 			a1=a2;
 			a2=a3;
 			a3=a[0];
-			if(a1>=a2&&a2<=a3){//�̶����ж�
+			if(a1>=a2&&a2<=a3){//¹Ì¶¨µãÅÐ¶Ï
 
 			Flag=0;
 			}
@@ -144,7 +145,7 @@ void ser() interrupt 4
 				}
 			}
 				if(Flag==1){
-					AngleNew=asin(a[0]/2048.0)*57.3+90;//����x����ٶȷ����жϷ�λ��							
+					AngleNew=asin(a[0]/2048.0)*57.3+90;//ÀûÓÃxÖá¼ÓËÙ¶È·½ÏòÅÐ¶Ï·½Î»½Ç							
 					}
 				else {
 					AngleNew=270-asin(a[0]/2048.0)*57.3;
